@@ -2,10 +2,7 @@ package com.example.sudoku_be.services;
 
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-
-import static com.example.sudoku_be.config.SudokuGridConfig.GRID_SIZE;
-import static com.example.sudoku_be.config.SudokuGridConfig.SUBGRID_SIZE;
+import static com.example.sudoku_be.config.SudokuGridConfig.*;
 
 @Service
 public class SudokuGrid {
@@ -16,11 +13,45 @@ public class SudokuGrid {
 
         this.grid = new int[GRID_SIZE][GRID_SIZE]; // Instantiate two-dimensional array of specific length.
 
-        int gridLength = this.grid.length;
+        // new int[GRID_SIZE][GRID_SIZE] defaults to a two-dimensional array of zeroes.
 
-        for (int i = 0; i < gridLength; i++) { // Iterate over rows.
+//        int gridLength = this.grid.length;
+//        for (int i = 0; i < gridLength; i++) { // Iterate over rows.
+//            Arrays.fill(this.grid[i], 0); // Fill rows with specific value.
+//        }
+    }
 
-            Arrays.fill(this.grid[i], 0); // Fill rows with specific value.
+    public SudokuGrid(int[][] grid) {
+
+        validateGrid(grid);
+
+        this.grid = grid;
+    }
+
+    private void validateGrid(int[][] grid) {
+
+        if (grid == null) {
+            throw new IllegalArgumentException("SudokuGrid should not be null.");
+        }
+
+        if (grid.length != GRID_SIZE) {
+            throw new IllegalArgumentException(String.format("SudokuGrid should contain %d rows.", GRID_SIZE));
+        }
+
+        for (int i = 0; i < grid.length; i++) {
+
+            if (grid[i].length != GRID_SIZE) {
+                throw new IllegalArgumentException(String.format("SudokuGrid should contain %d columns.", GRID_SIZE));
+            }
+
+            for (int j = 0; j < grid[0].length; j++) {
+
+                int cell = grid[i][j];
+
+                if (cell < CELL_DEFAULT || cell > GRID_SIZE) {
+                    throw new IllegalArgumentException(String.format("SudokuGrid cell should contain values between %d and %d inclusive.", CELL_DEFAULT, GRID_SIZE));
+                }
+            }
         }
     }
 
