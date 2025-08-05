@@ -1,17 +1,24 @@
 package com.example.sudoku_be.services;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.example.sudoku_be.config.SudokuGridConfig.CELL_DEFAULT;
 import static com.example.sudoku_be.config.SudokuGridConfig.GRID_SIZE;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SudokuGridTest {
+public class SudokuGridDefaultTest {
+
+    private SudokuGrid sudokuGrid;
+
+    @BeforeEach
+    void initTest() {
+
+        sudokuGrid = new SudokuGrid(); // Instantiate grid.
+    }
 
     @Test
-    void testSudokuGrid() {
-
-        SudokuGrid sudokuGrid = new SudokuGrid(); // Instantiate grid.
+    void testSudokuGridDefault() {
 
         int[][] grid = sudokuGrid.getGrid(); // Access grid.
 
@@ -31,9 +38,7 @@ public class SudokuGridTest {
     }
 
     @Test
-    void testGetRow() {
-
-        SudokuGrid sudokuGrid = new SudokuGrid(); // Instantiate grid.
+    void testGetRowDefault() {
 
         int gridLength = sudokuGrid.getGrid().length; // Access grid length.
 
@@ -51,9 +56,7 @@ public class SudokuGridTest {
     }
 
     @Test
-    void testGetCol() {
-
-        SudokuGrid sudokuGrid = new SudokuGrid(); // Instantiate grid.
+    void testGetColDefault() {
 
         int gridLength = sudokuGrid.getGrid().length; // Access grid length.
 
@@ -71,9 +74,7 @@ public class SudokuGridTest {
     }
 
     @Test
-    void testGetSubgrid() {
-
-        SudokuGrid sudokuGrid = new SudokuGrid(); // Instantiate grid.
+    void testGetSubgridDefault() {
 
         int[][] grid = sudokuGrid.getGrid(); // Access grid.
 
@@ -82,6 +83,8 @@ public class SudokuGridTest {
             for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
 
                 int[] subgrid = sudokuGrid.getSubgrid(i, j); // Access subgrid.
+
+                assertEquals(GRID_SIZE, subgrid.length, String.format("Subgrid should contain %d cells.", GRID_SIZE));
 
                 assertEquals(CELL_DEFAULT, subgrid[j], String.format("Cell at subgrid[%d] should be %d.", j, CELL_DEFAULT));
             }

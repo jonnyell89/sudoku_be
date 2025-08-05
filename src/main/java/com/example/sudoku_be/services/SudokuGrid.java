@@ -56,14 +56,19 @@ public class SudokuGrid {
     }
 
     public int[][] getGrid() {
+
         return grid;
     }
 
     public void setGrid(int[][] grid) {
+
+        validateGrid(grid);
+
         this.grid = grid;
     }
 
     public int[] getRow(int rowIndex) {
+
         return this.grid[rowIndex];
     }
 
@@ -87,14 +92,18 @@ public class SudokuGrid {
 
         int subgridLength = this.grid.length / SUBGRID_SIZE;
 
-        int startRow = Math.floorDiv(rowIndex, SUBGRID_SIZE) * SUBGRID_SIZE;
-        int startCol = Math.floorDiv(colIndex, SUBGRID_SIZE) * SUBGRID_SIZE;
+        int startRow = Math.floorDiv(rowIndex, SUBGRID_SIZE) * SUBGRID_SIZE; // subgrid[0][j]
+        int startCol = Math.floorDiv(colIndex, SUBGRID_SIZE) * SUBGRID_SIZE; // subgrid[i][0]
+
+        int subgridIndex = 0;
 
         for (int i = 0; i < subgridLength; i++) {
 
             for (int j = 0; j < subgridLength; j++) {
 
-                subgrid[i] = this.grid[startRow + i][startCol + j];
+                subgrid[subgridIndex] = this.grid[startRow + i][startCol + j]; // Set array element equal to specific cell.
+
+                subgridIndex++;
             }
         }
 
