@@ -22,7 +22,7 @@ public class SudokuGridTest {
 
             assertEquals(GRID_SIZE, grid[i].length, "Grid should have 9 equal columns.");
 
-            for (int j = 0; j < grid.length; j++) { // Iterate over columns.
+            for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
 
                 assertEquals(0, grid[i][j], String.format("Cell at grid[%d][%d] should be 0.", i, j));
             }
@@ -34,17 +34,17 @@ public class SudokuGridTest {
 
         SudokuGrid sudokuGrid = new SudokuGrid(); // Instantiate grid.
 
-        int[][] grid = sudokuGrid.getGrid(); // Access grid.
+        int gridLength = sudokuGrid.getGrid().length; // Access grid length.
 
-        for (int i = 0; i < grid.length; i++) { // Iterate over rows.
+        for (int i = 0; i < gridLength; i++) { // Iterate over rows.
 
-            int[] gridRow = sudokuGrid.getRow(i); // Access row.
+            int[] row = sudokuGrid.getRow(i); // Access row.
 
-            assertEquals(grid.length, gridRow.length, "Grid should have 9 equal columns.");
+            assertEquals(gridLength, row.length, "Grid should have 9 equal rows.");
 
-            for (int j = 0; j < gridRow.length; j++) { // Iterate over columns.
+            for (int j = 0; j < row.length; j++) { // Iterate over cells.
 
-                assertEquals(0, gridRow[j], String.format("Cell at gridRow[%d] should be 0.", j));
+                assertEquals(0, row[j], String.format("Cell at row[%d] should be 0.", j));
             }
         }
     }
@@ -54,17 +54,35 @@ public class SudokuGridTest {
 
         SudokuGrid sudokuGrid = new SudokuGrid(); // Instantiate grid.
 
+        int gridLength = sudokuGrid.getGrid().length; // Access grid length.
+
+        for (int i = 0; i < gridLength; i++) { // Iterate over columns.
+
+            int[] col = sudokuGrid.getCol(i); // Access column.
+
+            assertEquals(gridLength, col.length, "Grid should have 9 equal columns.");
+
+            for (int j = 0; j < col.length; j++) { // Iterate over cells.
+
+                assertEquals(0, col[j], String.format("Cell at col[%d] should be 0.", j));
+            }
+        }
+    }
+
+    @Test
+    void testGetSubgrid() {
+
+        SudokuGrid sudokuGrid = new SudokuGrid(); // Instantiate grid.
+
         int[][] grid = sudokuGrid.getGrid(); // Access grid.
 
         for (int i = 0; i < grid.length; i++) { // Iterate over rows.
 
-            int[] gridCol = sudokuGrid.getCol(i); // Access column.
+            for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
 
-            assertEquals(grid.length, gridCol.length, "Grid should have 9 equal columns.");
+                int[] subgrid = sudokuGrid.getSubgrid(i, j); // Access subgrid.
 
-            for (int j = 0; j < gridCol.length; j++) { // Iterate over columns.
-
-                assertEquals(0, gridCol[j], String.format("Cell at gridCol[%d] should be 0.", j));
+                assertEquals(0, subgrid[j], String.format("Cell at subgrid[%d] should be 0.", j));
             }
         }
     }
