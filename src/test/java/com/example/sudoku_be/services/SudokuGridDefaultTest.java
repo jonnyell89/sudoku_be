@@ -14,8 +14,10 @@ public class SudokuGridDefaultTest {
     @BeforeEach
     void initTest() {
 
-        sudokuGrid = new SudokuGrid(); // Instantiate grid.
+        sudokuGrid = new SudokuGrid(); // Instantiate default SudokuGrid object.
     }
+
+    // org.junit.jupiter.api.Assertions.* -> (expected, actual, message)
 
     @Test
     void testSudokuGridDefault() {

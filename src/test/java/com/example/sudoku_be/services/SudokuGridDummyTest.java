@@ -3,11 +3,17 @@ package com.example.sudoku_be.services;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import static com.example.sudoku_be.config.SudokuGridConfig.GRID_SIZE;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SudokuGridDummyTest {
+
+    private static final Set<Integer> DUMMY_UNIT = Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
     private SudokuGrid sudokuGrid;
 
@@ -27,15 +33,24 @@ public class SudokuGridDummyTest {
                 {9, 7, 2, 3, 4, 5, 6, 1, 8}
         };
 
-        sudokuGrid = new SudokuGrid(dummyGrid);
+        sudokuGrid = new SudokuGrid(dummyGrid); // Instantiate SudokuGrid object with dummyGrid.
+    }
+
+    // org.junit.jupiter.api.Assertions.* -> (expected, actual, message)
+
+    private boolean isUnitValid(int[] unit) {
+
+        Set<Integer> unitSet = Arrays.stream(unit)
+                .boxed()
+                .collect(Collectors.toSet());
+
+        return DUMMY_UNIT.equals(unitSet);
     }
 
     @Test
     void testGetSubgridWithDummyGrid() {
 
         int[][] grid = sudokuGrid.getGrid(); // Access grid.
-
-        int[] dummySubgrid = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 
         for (int i = 0; i < grid.length; i++) { // Iterate over rows.
 
@@ -45,7 +60,7 @@ public class SudokuGridDummyTest {
 
                 assertEquals(GRID_SIZE, subgrid.length, String.format("Subgrid should contain %d cells.", GRID_SIZE));
 
-                assertArrayEquals(dummySubgrid, subgrid, String.format("Subgrid at grid[%d][%d] should contain 1 to 9 inclusive.", i, j));
+                assertTrue(isUnitValid(subgrid), String.format("Subgrid at grid[%d][%d] should contain 1 to 9 inclusive.", i, j));
             }
         }
     }
