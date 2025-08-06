@@ -38,6 +38,11 @@ public class SudokuGridDummyTest {
 
     // org.junit.jupiter.api.Assertions.* -> (expected, actual, message)
 
+    private boolean isCellValid(int cell) {
+
+        return DUMMY_UNIT.contains(cell);
+    }
+
     private boolean isUnitValid(int[] unit) {
 
         Set<Integer> unitSet = Arrays.stream(unit)
@@ -45,6 +50,26 @@ public class SudokuGridDummyTest {
                 .collect(Collectors.toSet());
 
         return DUMMY_UNIT.equals(unitSet);
+    }
+
+    @Test
+    void testSudokuGridWithDummyGrid() {
+
+        int[][] grid = sudokuGrid.getGrid(); // Access grid.
+
+        assertNotNull(grid, "Grid should not be null.");
+
+        assertEquals(GRID_SIZE, grid.length, String.format("Grid should contain %d rows.", GRID_SIZE));
+
+        for (int i = 0; i < grid.length; i++) { // Iterate over rows.
+
+            assertEquals(GRID_SIZE, grid[i].length, String.format("Grid should contain %d columns.", GRID_SIZE));
+
+            for (int j = 0; j < grid.length; j++) { // Iterate over columns.
+
+                assertTrue(isCellValid(grid[i][j]), String.format("Cell at grid[%d][%d] should be between 1 and 9 inclusive.", i, j));
+            }
+        }
     }
 
     @Test
