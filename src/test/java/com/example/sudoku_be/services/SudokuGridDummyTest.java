@@ -92,6 +92,24 @@ public class SudokuGridDummyTest {
     }
 
     @Test
+    void testGetColWithDummyGrid() {
+
+        int gridLength = sudokuGrid.getGrid().length; // Access grid length.
+
+        for (int i = 0; i < gridLength; i++) { // Iterate over columns.
+
+            int[] col = sudokuGrid.getCol(i); // Access column.
+
+            assertEquals(gridLength, col.length, String.format("Grid should contain %d equal columns.", GRID_SIZE));
+
+            for (int j = 0; j < col.length; j++) { // Iterate over cells.
+
+                assertTrue(isCellValid(col[j]), String.format("Cell at col[%d] should be between 1 and 9 inclusive.", j));
+            }
+        }
+    }
+
+    @Test
     void testGetSubgridWithDummyGrid() {
 
         int[][] grid = sudokuGrid.getGrid(); // Access grid.
