@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.example.sudoku_be.config.SudokuGridConfig.CELL_DEFAULT;
 import static com.example.sudoku_be.config.SudokuGridConfig.GRID_SIZE;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -68,6 +69,24 @@ public class SudokuGridDummyTest {
             for (int j = 0; j < grid.length; j++) { // Iterate over columns.
 
                 assertTrue(isCellValid(grid[i][j]), String.format("Cell at grid[%d][%d] should be between 1 and 9 inclusive.", i, j));
+            }
+        }
+    }
+
+    @Test
+    void testGetRowWithDummyGrid() {
+
+        int gridLength = sudokuGrid.getGrid().length; // Access grid length.
+
+        for (int i = 0; i < gridLength; i++) { // Iterate over rows.
+
+            int[] row = sudokuGrid.getRow(i); // Access row.
+
+            assertEquals(gridLength, row.length, String.format("Grid should contain %d equal rows.", GRID_SIZE));
+
+            for (int j = 0; j < row.length; j++) { // Iterate over cells.
+
+                assertTrue(isCellValid(row[j]), String.format("Cell at row[%d] should be between 1 and 9 inclusive.", j));
             }
         }
     }
