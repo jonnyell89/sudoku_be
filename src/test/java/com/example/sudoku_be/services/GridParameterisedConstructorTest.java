@@ -91,4 +91,22 @@ public class GridParameterisedConstructorTest {
             }
         }
     }
+
+    @Test
+    void testCellSequence() {
+
+        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
+
+        assertFalse(sudokuGrid.isCellEmpty(8, 8), String.format("Cell at grid[8][8] should contain %d", sudokuGrid.getCell(8, 8).getValue()));
+
+        sudokuGrid.resetCell(8, 8);
+
+        assertTrue(sudokuGrid.isCellEmpty(8, 8), String.format("Cell at grid[8][8] should contain %d", sudokuGrid.getCell(8, 8).getValue()));
+
+        Cell emptyCell = sudokuGrid.findNextEmptyCell();
+
+        assertNotNull(emptyCell, "Cell at grid[8][8] should be zero.");
+
+        assertEquals(emptyCell, sudokuGrid.getCell(8, 8), "Cell at grid[8][8] should be zero.");
+    }
 }

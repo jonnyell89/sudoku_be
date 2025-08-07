@@ -12,12 +12,12 @@ public class Grid {
 
     private Cell[][] grid;
 
-    public Grid() {
+    public Grid() { // Default constructor.
 
         this.grid = GridUtils.initGrid(GRID_SIZE); // Grid initialised with default Cell objects.
     }
 
-    public Grid(Cell[][] grid) {
+    public Grid(Cell[][] grid) { // Parameterised constructor.
 
         validator.validate(grid);
 
@@ -79,13 +79,34 @@ public class Grid {
         return subgrid;
     }
 
-    public boolean isCellEmpty(int rowIndex, int colIndex) { // REQUIRES UNIT TEST
+    public Cell getCell(int rowIndex, int colIndex) {
 
-        return this.grid[rowIndex][colIndex].getValue() == 0;
+        return this.grid[rowIndex][colIndex];
     }
 
     public void resetCell(int rowIndex, int colIndex) { // REQUIRES UNIT TEST
 
         this.grid[rowIndex][colIndex].setValue(0);
+    }
+
+    public boolean isCellEmpty(int rowIndex, int colIndex) { // REQUIRES UNIT TEST
+
+        return this.grid[rowIndex][colIndex].getValue() == 0;
+    }
+
+    public Cell findNextEmptyCell() {
+
+        for (int i = 0; i < this.grid.length; i++) {
+
+            for (int j = 0; j < this.grid[0].length; j++) {
+
+                if (isCellEmpty(i, j)) {
+
+                    return this.grid[i][j];
+                }
+            }
+        }
+
+        return null;
     }
 }
