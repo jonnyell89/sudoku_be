@@ -4,15 +4,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.example.sudoku_be.config.SudokuGridConfig.CELL_DEFAULT;
 import static com.example.sudoku_be.config.SudokuGridConfig.GRID_SIZE;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SudokuGridDummyTest {
+public class SudokuGridParameterisedConstructorTest {
 
     private static final Set<Integer> DUMMY_UNIT = Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
@@ -52,7 +50,7 @@ public class SudokuGridDummyTest {
     }
 
     @Test
-    void testSudokuGridWithDummyGrid() {
+    void testSudokuGrid() {
 
         int[][] grid = sudokuGrid.getGrid(); // Access grid.
 
@@ -72,7 +70,7 @@ public class SudokuGridDummyTest {
     }
 
     @Test
-    void testGetRowWithDummyGrid() {
+    void testGetRow() {
 
         int gridLength = sudokuGrid.getGrid().length; // Access grid length.
 
@@ -90,7 +88,7 @@ public class SudokuGridDummyTest {
     }
 
     @Test
-    void testGetColWithDummyGrid() {
+    void testGetCol() {
 
         int gridLength = sudokuGrid.getGrid().length; // Access grid length.
 
@@ -108,7 +106,7 @@ public class SudokuGridDummyTest {
     }
 
     @Test
-    void testGetSubgridWithDummyGrid() {
+    void testGetSubgrid() {
 
         int[][] grid = sudokuGrid.getGrid(); // Access grid.
 

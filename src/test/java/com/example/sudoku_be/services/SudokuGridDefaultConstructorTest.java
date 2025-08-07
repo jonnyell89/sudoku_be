@@ -7,7 +7,7 @@ import static com.example.sudoku_be.config.SudokuGridConfig.CELL_DEFAULT;
 import static com.example.sudoku_be.config.SudokuGridConfig.GRID_SIZE;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SudokuGridDefaultTest {
+public class SudokuGridDefaultConstructorTest {
 
     private SudokuGrid sudokuGrid;
 
@@ -18,7 +18,7 @@ public class SudokuGridDefaultTest {
     }
 
     @Test
-    void testSudokuGridDefault() {
+    void testSudokuGrid() {
 
         int[][] grid = sudokuGrid.getGrid(); // Access grid.
 
@@ -38,7 +38,7 @@ public class SudokuGridDefaultTest {
     }
 
     @Test
-    void testGetRowDefault() {
+    void testGetRow() {
 
         int gridLength = sudokuGrid.getGrid().length; // Access grid length.
 
@@ -56,7 +56,7 @@ public class SudokuGridDefaultTest {
     }
 
     @Test
-    void testGetColDefault() {
+    void testGetCol() {
 
         int gridLength = sudokuGrid.getGrid().length; // Access grid length.
 
@@ -74,7 +74,7 @@ public class SudokuGridDefaultTest {
     }
 
     @Test
-    void testGetSubgridDefault() {
+    void testGetSubgrid() {
 
         int[][] grid = sudokuGrid.getGrid(); // Access grid.
 
