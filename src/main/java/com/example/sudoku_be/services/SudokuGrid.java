@@ -77,4 +77,14 @@ public class SudokuGrid {
 
         return subgrid;
     }
+
+    public boolean isCellEmpty(int rowIndex, int colIndex) {
+
+        return this.grid[rowIndex][colIndex] == 0;
+    }
+
+    public void resetCell(int rowIndex, int colIndex) {
+
+        this.grid[rowIndex][colIndex] = 0;
+    }
 }
