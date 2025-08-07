@@ -3,24 +3,24 @@ package com.example.sudoku_be.services;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.example.sudoku_be.config.SudokuGridConfig.CELL_DEFAULT;
-import static com.example.sudoku_be.config.SudokuGridConfig.GRID_SIZE;
+import static com.example.sudoku_be.config.GridConfig.CELL_DEFAULT;
+import static com.example.sudoku_be.config.GridConfig.GRID_SIZE;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SudokuGridDefaultConstructorTest {
+public class GridDefaultConstructorTest {
 
-    private SudokuGrid sudokuGrid;
+    private Grid sudokuGrid;
 
     @BeforeEach
     void initTest() {
 
-        sudokuGrid = new SudokuGrid(); // Instantiate default SudokuGrid object.
+        sudokuGrid = new Grid(); // Instantiate default Grid object.
     }
 
     @Test
-    void testSudokuGrid() {
+    void testGrid() {
 
-        int[][] grid = sudokuGrid.getGrid(); // Access grid.
+        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
 
         assertNotNull(grid, "Grid should not be null.");
 
@@ -32,7 +32,7 @@ public class SudokuGridDefaultConstructorTest {
 
             for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
 
-                assertEquals(CELL_DEFAULT, grid[i][j], String.format("Cell at grid[%d][%d] should be %d.", i, j, CELL_DEFAULT));
+                assertEquals(CELL_DEFAULT, grid[i][j].getValue(), String.format("Cell at grid[%d][%d] should be %d.", i, j, CELL_DEFAULT));
             }
         }
     }
@@ -44,13 +44,13 @@ public class SudokuGridDefaultConstructorTest {
 
         for (int i = 0; i < gridLength; i++) { // Iterate over rows.
 
-            int[] row = sudokuGrid.getRow(i); // Access row.
+            Cell[] row = sudokuGrid.getRow(i); // Access row.
 
             assertEquals(gridLength, row.length, String.format("Grid should contain %d equal rows.", GRID_SIZE));
 
             for (int j = 0; j < row.length; j++) { // Iterate over cells.
 
-                assertEquals(CELL_DEFAULT, row[j], String.format("Cell at row[%d] should be %d.", j, CELL_DEFAULT));
+                assertEquals(CELL_DEFAULT, row[j].getValue(), String.format("Cell at row[%d] should be %d.", j, CELL_DEFAULT));
             }
         }
     }
@@ -62,13 +62,13 @@ public class SudokuGridDefaultConstructorTest {
 
         for (int i = 0; i < gridLength; i++) { // Iterate over columns.
 
-            int[] col = sudokuGrid.getCol(i); // Access column.
+            Cell[] col = sudokuGrid.getCol(i); // Access column.
 
             assertEquals(gridLength, col.length, String.format("Grid should contain %d equal columns.", GRID_SIZE));
 
             for (int j = 0; j < col.length; j++) { // Iterate over cells.
 
-                assertEquals(CELL_DEFAULT, col[j], String.format("Cell at col[%d] should be %d.", j, CELL_DEFAULT));
+                assertEquals(CELL_DEFAULT, col[j].getValue(), String.format("Cell at col[%d] should be %d.", j, CELL_DEFAULT));
             }
         }
     }
@@ -76,17 +76,17 @@ public class SudokuGridDefaultConstructorTest {
     @Test
     void testGetSubgrid() {
 
-        int[][] grid = sudokuGrid.getGrid(); // Access grid.
+        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
 
         for (int i = 0; i < grid.length; i++) { // Iterate over rows.
 
             for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
 
-                int[] subgrid = sudokuGrid.getSubgrid(i, j); // Access subgrid.
+                Cell[] subgrid = sudokuGrid.getSubgrid(i, j); // Access subgrid.
 
                 assertEquals(GRID_SIZE, subgrid.length, String.format("Subgrid should contain %d cells.", GRID_SIZE));
 
-                assertEquals(CELL_DEFAULT, subgrid[j], String.format("Cell at subgrid[%d] should be %d.", j, CELL_DEFAULT));
+                assertEquals(CELL_DEFAULT, subgrid[j].getValue(), String.format("Cell at subgrid[%d] should be %d.", j, CELL_DEFAULT));
             }
         }
     }

@@ -2,13 +2,13 @@ package com.example.sudoku_be.services;
 
 import org.springframework.stereotype.Service;
 
-import static com.example.sudoku_be.config.SudokuGridConfig.CELL_DEFAULT;
-import static com.example.sudoku_be.config.SudokuGridConfig.GRID_SIZE;
+import static com.example.sudoku_be.config.GridConfig.CELL_DEFAULT;
+import static com.example.sudoku_be.config.GridConfig.GRID_SIZE;
 
 @Service
-public class SudokuGridValidator {
+public class GridValidator {
 
-    public void validate(int[][] grid) {
+    public void validate(Cell[][] grid) {
 
         if (grid == null) {
             throw new IllegalArgumentException("Grid should not be null.");
@@ -26,9 +26,9 @@ public class SudokuGridValidator {
 
             for (int j = 0; j < grid[0].length; j++) {
 
-                int cell = grid[i][j];
+                Cell cell = grid[i][j]; // Access cell.
 
-                if (cell < CELL_DEFAULT || cell > GRID_SIZE) {
+                if (cell.getValue() < CELL_DEFAULT || cell.getValue() > GRID_SIZE) {
                     throw new IllegalArgumentException(String.format("Grid cell should contain values between %d and %d inclusive.", CELL_DEFAULT, GRID_SIZE));
                 }
             }

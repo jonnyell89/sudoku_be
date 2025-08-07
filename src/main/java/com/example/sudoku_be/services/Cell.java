@@ -6,14 +6,14 @@ public class Cell {
     private int colIndex;
     private int value;
 
-    Cell(int rowIndex, int colIndex) {
+    public Cell(int rowIndex, int colIndex) {
 
         this.rowIndex = rowIndex;
         this.colIndex = colIndex;
         this.value = 0;
     }
 
-    Cell(int rowIndex, int colIndex, int value) {
+    public Cell(int rowIndex, int colIndex, int value) {
 
         this.rowIndex = rowIndex;
         this.colIndex = colIndex;

@@ -1,62 +1,63 @@
 package com.example.sudoku_be.services;
 
+import com.example.sudoku_be.utils.GridUtils;
 import org.springframework.stereotype.Service;
 
-import static com.example.sudoku_be.config.SudokuGridConfig.*;
+import static com.example.sudoku_be.config.GridConfig.*;
 
 @Service
-public class SudokuGrid {
+public class Grid {
 
-    private final SudokuGridValidator validator = new SudokuGridValidator();
+    private final GridValidator validator = new GridValidator();
 
-    private int[][] grid;
+    private Cell[][] grid;
 
-    public SudokuGrid() {
+    public Grid() {
 
-        this.grid = new int[GRID_SIZE][GRID_SIZE]; // Instantiate two-dimensional array of zeroes.
+        this.grid = GridUtils.initGrid(GRID_SIZE); // Grid initialised with Cell objects.
     }
 
-    public SudokuGrid(int[][] grid) {
+    public Grid(Cell[][] grid) {
 
         validator.validate(grid);
 
         this.grid = grid;
     }
 
-    public int[][] getGrid() {
+    public Cell[][] getGrid() {
 
         return grid;
     }
 
-    public void setGrid(int[][] grid) {
+    public void setGrid(Cell[][] grid) {
 
         validator.validate(grid);
 
         this.grid = grid;
     }
 
-    public int[] getRow(int rowIndex) {
+    public Cell[] getRow(int rowIndex) {
 
         return this.grid[rowIndex];
     }
 
-    public int[] getCol(int colIndex) {
+    public Cell[] getCol(int colIndex) {
 
-        int[] col = new int[this.grid.length]; // Instantiate array of specific length.
+        Cell[] col = new Cell[this.grid.length]; // Array containing nulls, or Cell references.
 
         int colLength = col.length;
 
         for (int i = 0; i < colLength; i++) { // Iterate over column.
 
-            col[i] = this.grid[i][colIndex]; // Set array element equal to specific cell.
+            col[i] = this.grid[i][colIndex]; // Set array element equal to Cell object.
         }
 
         return col;
     }
 
-    public int[] getSubgrid(int rowIndex, int colIndex) {
+    public Cell[] getSubgrid(int rowIndex, int colIndex) {
 
-        int[] subgrid = new int[this.grid.length]; // Instantiate array of specific length.
+        Cell[] subgrid = new Cell[this.grid.length]; // Array containing nulls, or Cell references.
 
         int subgridLength = this.grid.length / SUBGRID_SIZE;
 
@@ -69,7 +70,7 @@ public class SudokuGrid {
 
             for (int j = 0; j < subgridLength; j++) { // Iterate over columns.
 
-                subgrid[subgridIndex] = this.grid[startRow + i][startCol + j]; // Set array element equal to specific cell.
+                subgrid[subgridIndex] = this.grid[startRow + i][startCol + j]; // Set array element equal to Cell object.
 
                 subgridIndex++;
             }
@@ -80,11 +81,11 @@ public class SudokuGrid {
 
     public boolean isCellEmpty(int rowIndex, int colIndex) {
 
-        return this.grid[rowIndex][colIndex] == 0;
+        return this.grid[rowIndex][colIndex].getValue() == 0;
     }
 
     public void resetCell(int rowIndex, int colIndex) {
 
-        this.grid[rowIndex][colIndex] = 0;
+        this.grid[rowIndex][colIndex].setValue(0);
     }
 }
