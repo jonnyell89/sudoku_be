@@ -14,7 +14,7 @@ public class Grid {
 
     public Grid() {
 
-        this.grid = GridUtils.initGrid(GRID_SIZE); // Grid initialised with Cell objects.
+        this.grid = GridUtils.initGrid(GRID_SIZE); // Grid initialised with default Cell objects.
     }
 
     public Grid(Cell[][] grid) {
@@ -24,12 +24,12 @@ public class Grid {
         this.grid = grid;
     }
 
-    public Cell[][] getGrid() {
+    public Cell[][] getGrid() { // NO UNIT TEST
 
         return grid;
     }
 
-    public void setGrid(Cell[][] grid) {
+    public void setGrid(Cell[][] grid) { // NO UNIT TEST
 
         validator.validate(grid);
 
@@ -79,12 +79,12 @@ public class Grid {
         return subgrid;
     }
 
-    public boolean isCellEmpty(int rowIndex, int colIndex) {
+    public boolean isCellEmpty(int rowIndex, int colIndex) { // REQUIRES UNIT TEST
 
         return this.grid[rowIndex][colIndex].getValue() == 0;
     }
 
-    public void resetCell(int rowIndex, int colIndex) {
+    public void resetCell(int rowIndex, int colIndex) { // REQUIRES UNIT TEST
 
         this.grid[rowIndex][colIndex].setValue(0);
     }

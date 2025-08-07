@@ -6,13 +6,13 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.example.sudoku_be.config.GridTestConfig.DUMMY_UNIT;
+import static com.example.sudoku_be.config.GridConfig.UNIT_REFERENCE;
 
 public class GridTestUtils {
 
     public static boolean isCellValid(Cell cell) {
 
-        return DUMMY_UNIT.contains(cell.getValue());
+        return UNIT_REFERENCE.contains(cell.getValue());
     }
 
     public static boolean isUnitValid(Cell[] unit) {
@@ -21,7 +21,7 @@ public class GridTestUtils {
                 .map(Cell::getValue)
                 .collect(Collectors.toSet());
 
-        return DUMMY_UNIT.equals(unitSet);
+        return UNIT_REFERENCE.equals(unitSet);
     }
 
     public static Cell[][] convertIntGridToCellGrid(int[][] intGrid) {

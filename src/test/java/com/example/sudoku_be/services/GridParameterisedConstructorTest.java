@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.example.sudoku_be.config.GridConfig.GRID_SIZE;
-import static com.example.sudoku_be.config.GridTestConfig.DUMMY_GRID;
+import static com.example.sudoku_be.config.GridTestConfig.TEST_GRID;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GridParameterisedConstructorTest {
@@ -15,7 +15,7 @@ public class GridParameterisedConstructorTest {
     @BeforeEach
     void initTest() {
 
-        sudokuGrid = new Grid(GridTestUtils.convertIntGridToCellGrid(DUMMY_GRID)); // Instantiate parameterised Grid object.
+        sudokuGrid = new Grid(GridTestUtils.convertIntGridToCellGrid(TEST_GRID)); // Instantiate parameterised Grid object.
     }
 
     @Test
