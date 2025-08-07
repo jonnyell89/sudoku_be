@@ -37,8 +37,6 @@ public class SudokuGridDummyTest {
         sudokuGrid = new SudokuGrid(dummyGrid); // Instantiate SudokuGrid object with dummyGrid.
     }
 
-    // org.junit.jupiter.api.Assertions.* -> (expected, actual, message)
-
     private boolean isCellValid(int cell) {
 
         return DUMMY_UNIT.contains(cell);
