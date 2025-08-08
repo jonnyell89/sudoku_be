@@ -90,4 +90,48 @@ public class GridDefaultConstructorTest {
             }
         }
     }
+
+    @Test
+    void testGetCell() {
+
+        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
+
+        for (int i = 0; i < grid.length; i++) { // Iterate over rows.
+
+            for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
+
+                Cell cell = sudokuGrid.getCell(i, j);
+
+                assertEquals(grid[i][j], cell, String.format("Cell at grid[%d][%d] should be equal to sudokuGrid.getCell(%d, %d)", i, j, i, j));
+            }
+        }
+    }
+
+    @Test
+    void testIsCellEmpty() {
+
+        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
+
+        for (int i = 0; i < grid.length; i++) { // Iterate over rows.
+
+            for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
+
+                assertTrue(sudokuGrid.isCellEmpty(i, j), String.format("Cell at grid[%d][%d] should be equal to zero.", i, j));
+            }
+        }
+    }
+
+//    @Test
+//    void testFindNextEmptyCell() {
+//
+//        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
+//
+//        for (int i = 0; i < grid.length; i++) { // Iterate over rows.
+//
+//            for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
+//
+//
+//            }
+//        }
+//    }
 }

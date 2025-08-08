@@ -1,8 +1,19 @@
 package com.example.sudoku_be.config;
 
-import java.util.Set;
-
 public class GridTestConfig {
+
+    public static final int[][] EMPTY_GRID = new int[][]{
+
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+    };
 
     public static final int[][] TEST_GRID = new int[][]{
 

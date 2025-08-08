@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.example.sudoku_be.config.GridConfig.GRID_SIZE;
+import static com.example.sudoku_be.config.GridTestConfig.EMPTY_GRID;
 import static com.example.sudoku_be.config.GridTestConfig.TEST_GRID;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -88,6 +89,54 @@ public class GridParameterisedConstructorTest {
                 assertEquals(GRID_SIZE, subgrid.length, String.format("Subgrid should contain %d cells.", GRID_SIZE));
 
                 assertTrue(GridTestUtils.isUnitValid(subgrid), String.format("Subgrid at grid[%d][%d] should contain 1 to 9 inclusive.", i, j));
+            }
+        }
+    }
+
+    @Test
+    void testGetCell() {
+
+        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
+
+        for (int i = 0; i < grid.length; i++) { // Iterate over rows.
+
+            for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
+
+                Cell cell = sudokuGrid.getCell(i, j);
+
+                assertEquals(grid[i][j], cell, String.format("Cell at grid[%d][%d] should be equal to sudokuGrid.getCell(%d, %d)", i, j, i, j));
+            }
+        }
+    }
+
+    @Test
+    void testResetCell() {
+
+        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
+
+        for (int i = 0; i < grid.length; i++) { // Iterate over rows.
+
+            for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
+
+                sudokuGrid.resetCell(i, j);
+
+                int cell = sudokuGrid.getCell(i, j).getValue();
+
+                assertEquals(EMPTY_GRID[i][j], cell, String.format("Cell at grid[%d][%d] should be equal to zero.", i, j));
+            }
+        }
+    }
+
+    @Test
+    void testIsCellEmpty() {
+
+        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
+
+        for (int i = 0; i < grid.length; i++) { // Iterate over rows.
+
+            for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
+
+                assertFalse(sudokuGrid.isCellEmpty(i, j), String.format("Cell at grid[%d][%d] should not be equal to zero.", i, j));
             }
         }
     }

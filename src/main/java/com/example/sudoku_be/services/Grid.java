@@ -84,12 +84,12 @@ public class Grid {
         return this.grid[rowIndex][colIndex];
     }
 
-    public void resetCell(int rowIndex, int colIndex) { // REQUIRES UNIT TEST
+    public void resetCell(int rowIndex, int colIndex) {
 
         this.grid[rowIndex][colIndex].setValue(0);
     }
 
-    public boolean isCellEmpty(int rowIndex, int colIndex) { // REQUIRES UNIT TEST
+    public boolean isCellEmpty(int rowIndex, int colIndex) {
 
         return this.grid[rowIndex][colIndex].getValue() == 0;
     }
@@ -109,4 +109,9 @@ public class Grid {
 
         return null;
     }
+
+//    public Cell findNextEmptyCell(int rowIndex, int colIndex) {
+//
+//
+//    }
 }
