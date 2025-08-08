@@ -92,6 +92,24 @@ public class GridDefaultConstructorTest {
     }
 
     @Test
+    void testGetGridIndex() {
+
+        Cell[][] grid = sudokuGrid.getGrid();
+
+        int flatGridIndex = 0;
+
+        for (int i = 0; i < grid.length; i++) {
+
+            for (int j = 0; j < grid[0].length; j++) {
+
+                assertEquals(flatGridIndex, sudokuGrid.getGridIndex(i, j), String.format("Cell at grid[%d][%d] should have flatGridIndex equal to %d.", i, j, flatGridIndex));
+
+                flatGridIndex++;
+            }
+        }
+    }
+
+    @Test
     void testGetCell() {
 
         Cell[][] grid = sudokuGrid.getGrid(); // Access grid.

@@ -79,6 +79,11 @@ public class Grid {
         return subgrid;
     }
 
+    public int getGridIndex(int rowIndex, int colIndex) {
+
+        return rowIndex * grid.length + colIndex;
+    }
+
     public Cell getCell(int rowIndex, int colIndex) {
 
         return this.grid[rowIndex][colIndex];
