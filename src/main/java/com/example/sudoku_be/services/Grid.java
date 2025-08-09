@@ -8,7 +8,7 @@ import static com.example.sudoku_be.config.GridConfig.*;
 @Service
 public class Grid {
 
-    private final GridValidator validator = new GridValidator();
+    private final GridValidator gridValidator = new GridValidator();
 
     private Cell[][] grid;
 
@@ -19,7 +19,7 @@ public class Grid {
 
     public Grid(Cell[][] grid) { // Parameterised constructor.
 
-        validator.validate(grid);
+        gridValidator.validate(grid);
 
         this.grid = grid;
     }
@@ -31,7 +31,7 @@ public class Grid {
 
     public void setGrid(Cell[][] grid) { // NO UNIT TEST
 
-        validator.validate(grid);
+        gridValidator.validate(grid);
 
         this.grid = grid;
     }
@@ -99,11 +99,11 @@ public class Grid {
         return this.grid[rowIndex][colIndex].getValue() == 0;
     }
 
-    public Cell findNextEmptyCell() {
+    public Cell findNextEmptyCell(int rowIndex, int colIndex) {
 
-        for (int i = 0; i < this.grid.length; i++) {
+        for (int i = rowIndex; i < this.grid.length; i++) {
 
-            for (int j = 0; j < this.grid[0].length; j++) {
+            for (int j = (i == rowIndex ? colIndex : 0); j < this.grid[0].length; j++) {
 
                 if (isCellEmpty(i, j)) {
 
@@ -114,9 +114,4 @@ public class Grid {
 
         return null;
     }
-
-//    public Cell findNextEmptyCell(int rowIndex, int colIndex) {
-//
-//
-//    }
 }

@@ -139,17 +139,25 @@ public class GridDefaultConstructorTest {
         }
     }
 
-//    @Test
-//    void testFindNextEmptyCell() {
-//
-//        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
-//
-//        for (int i = 0; i < grid.length; i++) { // Iterate over rows.
-//
-//            for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
-//
-//
-//            }
-//        }
-//    }
+    @Test
+    void testFindNextEmptyCell() {
+
+        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
+
+        int emptyCells = 0;
+
+        for (int i = 0; i < grid.length; i++) { // Iterate over rows.
+
+            for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
+
+                Cell nextEmptyCell = sudokuGrid.findNextEmptyCell(i, j);
+
+                assertEquals(grid[i][j], nextEmptyCell, String.format("Cell at grid[%d][%d] should be equal to zero.", i, j));
+
+                emptyCells++;
+            }
+        }
+
+        assertEquals(grid.length * grid[0].length, emptyCells, String.format("Grid should contain %d empty cells.", grid.length * grid[0].length));
+    }
 }
