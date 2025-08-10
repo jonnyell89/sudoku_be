@@ -30,7 +30,7 @@ public class GridTestUtils {
 
         for (int i = 0; i < cellGrid.length; i++) {
 
-            for (int j = 0; j < cellGrid[0].length; j++) {
+            for (int j = 0; j < cellGrid[i].length; j++) {
 
                 cellGrid[i][j] = new Cell(i, j);
                 cellGrid[i][j].setValue(intGrid[i][j]);
@@ -46,7 +46,7 @@ public class GridTestUtils {
 
         for (int i = 0; i < intGrid.length; i++) {
 
-            for (int j = 0; j < intGrid.length; j++) {
+            for (int j = 0; j < intGrid[i].length; j++) {
 
                 intGrid[i][j] = cellGrid[i][j].getValue();
             }

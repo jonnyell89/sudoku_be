@@ -24,7 +24,7 @@ public class GridValidator {
                 throw new IllegalArgumentException(String.format("Grid should contain %d columns.", GRID_SIZE));
             }
 
-            for (int j = 0; j < grid[0].length; j++) {
+            for (int j = 0; j < grid[i].length; j++) {
 
                 Cell cell = grid[i][j]; // Access cell.
 

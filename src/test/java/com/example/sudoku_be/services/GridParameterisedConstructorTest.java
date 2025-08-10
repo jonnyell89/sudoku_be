@@ -32,7 +32,7 @@ public class GridParameterisedConstructorTest {
 
             assertEquals(GRID_SIZE, grid[i].length, String.format("Grid should contain %d columns.", GRID_SIZE));
 
-            for (int j = 0; j < grid.length; j++) { // Iterate over columns.
+            for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
 
                 assertTrue(GridTestUtils.isCellValid(grid[i][j]), String.format("Cell at grid[%d][%d] should be between 1 and 9 inclusive.", i, j));
             }
@@ -82,7 +82,7 @@ public class GridParameterisedConstructorTest {
 
         for (int i = 0; i < grid.length; i++) { // Iterate over rows.
 
-            for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
+            for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
 
                 Cell[] subgrid = sudokuGrid.getSubgrid(i, j); // Access subgrid.
 
@@ -100,7 +100,7 @@ public class GridParameterisedConstructorTest {
 
         for (int i = 0; i < grid.length; i++) { // Iterate over rows.
 
-            for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
+            for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
 
                 Cell cell = sudokuGrid.getCell(i, j);
 
@@ -116,7 +116,7 @@ public class GridParameterisedConstructorTest {
 
         for (int i = 0; i < grid.length; i++) { // Iterate over rows.
 
-            for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
+            for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
 
                 sudokuGrid.resetCell(i, j);
 
@@ -134,7 +134,7 @@ public class GridParameterisedConstructorTest {
 
         for (int i = 0; i < grid.length; i++) { // Iterate over rows.
 
-            for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
+            for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
 
                 assertFalse(sudokuGrid.isCellEmpty(i, j), String.format("Cell at grid[%d][%d] should not be equal to zero.", i, j));
             }

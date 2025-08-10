@@ -10,7 +10,7 @@ public class Grid {
 
     private final GridValidator gridValidator = new GridValidator();
 
-    private Cell[][] grid;
+    private final Cell[][] grid;
 
     public Grid() { // Default constructor.
 
@@ -26,30 +26,23 @@ public class Grid {
 
     public Cell[][] getGrid() { // NO UNIT TEST
 
-        return grid;
-    }
-
-    public void setGrid(Cell[][] grid) { // NO UNIT TEST
-
-        gridValidator.validate(grid);
-
-        this.grid = grid;
+        return this.grid;
     }
 
     public Cell[] getRow(int rowIndex) {
 
-        return this.grid[rowIndex];
+        return getGrid()[rowIndex];
     }
 
     public Cell[] getCol(int colIndex) {
 
-        Cell[] col = new Cell[this.grid.length]; // Array containing nulls, or Cell references.
+        Cell[][] grid = getGrid(); // Access grid.
 
-        int colLength = col.length;
+        Cell[] col = new Cell[grid.length]; // Array containing nulls, or Cell references.
 
-        for (int i = 0; i < colLength; i++) { // Iterate over column.
+        for (int i = 0; i < col.length; i++) { // Iterate over column.
 
-            col[i] = this.grid[i][colIndex]; // Set array element equal to Cell object.
+            col[i] = grid[i][colIndex]; // Set array element equal to Cell object.
         }
 
         return col;
@@ -57,9 +50,11 @@ public class Grid {
 
     public Cell[] getSubgrid(int rowIndex, int colIndex) {
 
-        Cell[] subgrid = new Cell[this.grid.length]; // Array containing nulls, or Cell references.
+        Cell[][] grid = getGrid(); // Access grid.
 
-        int subgridLength = this.grid.length / SUBGRID_SIZE;
+        int subgridLength = grid.length / SUBGRID_SIZE;
+
+        Cell[] subgrid = new Cell[subgridLength * subgridLength]; // Array containing nulls, or Cell references.
 
         int startRow = Math.floorDiv(rowIndex, SUBGRID_SIZE) * SUBGRID_SIZE; // subgrid[0][j]
         int startCol = Math.floorDiv(colIndex, SUBGRID_SIZE) * SUBGRID_SIZE; // subgrid[i][0]
@@ -70,7 +65,7 @@ public class Grid {
 
             for (int j = 0; j < subgridLength; j++) { // Iterate over columns.
 
-                subgrid[subgridIndex] = this.grid[startRow + i][startCol + j]; // Set array element equal to Cell object.
+                subgrid[subgridIndex] = grid[startRow + i][startCol + j]; // Set array element equal to Cell object.
 
                 subgridIndex++;
             }
@@ -81,33 +76,37 @@ public class Grid {
 
     public int getGridIndex(int rowIndex, int colIndex) {
 
-        return rowIndex * grid.length + colIndex;
+        return rowIndex * getGrid().length + colIndex;
     }
 
     public Cell getCell(int rowIndex, int colIndex) {
 
-        return this.grid[rowIndex][colIndex];
+        return getGrid()[rowIndex][colIndex];
     }
 
     public void resetCell(int rowIndex, int colIndex) {
 
-        this.grid[rowIndex][colIndex].setValue(0);
+        getCell(rowIndex, colIndex).setValue(0);
     }
 
     public boolean isCellEmpty(int rowIndex, int colIndex) {
 
-        return this.grid[rowIndex][colIndex].getValue() == 0;
+        return getCell(rowIndex, colIndex).getValue() == 0;
     }
 
     public Cell findNextEmptyCell(int rowIndex, int colIndex) {
 
-        for (int i = rowIndex; i < this.grid.length; i++) {
+        Cell[][] grid = getGrid(); // Access grid.
 
-            for (int j = (i == rowIndex ? colIndex : 0); j < this.grid[0].length; j++) {
+        for (int i = rowIndex; i < grid.length; i++) { // Iterate over rows.
+
+            int colStart = (i == rowIndex) ? colIndex : 0;
+
+            for (int j = colStart; j < grid[i].length; j++) { // Iterate over columns.
 
                 if (isCellEmpty(i, j)) {
 
-                    return this.grid[i][j];
+                    return getCell(i, j);
                 }
             }
         }

@@ -30,7 +30,7 @@ public class GridDefaultConstructorTest {
 
             assertEquals(GRID_SIZE, grid[i].length, String.format("Grid should contain %d columns.", GRID_SIZE));
 
-            for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
+            for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
 
                 assertEquals(CELL_DEFAULT, grid[i][j].getValue(), String.format("Cell at grid[%d][%d] should be %d.", i, j, CELL_DEFAULT));
             }
@@ -80,7 +80,7 @@ public class GridDefaultConstructorTest {
 
         for (int i = 0; i < grid.length; i++) { // Iterate over rows.
 
-            for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
+            for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
 
                 Cell[] subgrid = sudokuGrid.getSubgrid(i, j); // Access subgrid.
 
@@ -100,7 +100,7 @@ public class GridDefaultConstructorTest {
 
         for (int i = 0; i < grid.length; i++) {
 
-            for (int j = 0; j < grid[0].length; j++) {
+            for (int j = 0; j < grid[i].length; j++) {
 
                 assertEquals(flatGridIndex, sudokuGrid.getGridIndex(i, j), String.format("Cell at grid[%d][%d] should have flatGridIndex equal to %d.", i, j, flatGridIndex));
 
@@ -116,7 +116,7 @@ public class GridDefaultConstructorTest {
 
         for (int i = 0; i < grid.length; i++) { // Iterate over rows.
 
-            for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
+            for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
 
                 Cell cell = sudokuGrid.getCell(i, j);
 
@@ -132,7 +132,7 @@ public class GridDefaultConstructorTest {
 
         for (int i = 0; i < grid.length; i++) { // Iterate over rows.
 
-            for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
+            for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
 
                 assertTrue(sudokuGrid.isCellEmpty(i, j), String.format("Cell at grid[%d][%d] should be equal to zero.", i, j));
             }
@@ -148,7 +148,7 @@ public class GridDefaultConstructorTest {
 
         for (int i = 0; i < grid.length; i++) { // Iterate over rows.
 
-            for (int j = 0; j < grid[0].length; j++) { // Iterate over columns.
+            for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
 
                 Cell nextEmptyCell = sudokuGrid.findNextEmptyCell(i, j);
 
