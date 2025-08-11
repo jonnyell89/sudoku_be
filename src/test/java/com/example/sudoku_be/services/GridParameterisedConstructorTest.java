@@ -160,4 +160,21 @@ public class GridParameterisedConstructorTest {
             }
         }
     }
+
+    @Test
+    void testIsValid() {
+
+        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
+
+        for (int i = 0; i < grid.length; i++) {
+
+            for (int j = 0; j < grid[i].length; j++) {
+
+                for (int k = 1; k < UNIT_SIZE + 1; k++) {
+
+                    assertFalse(sudokuGrid.isValid(i, j, k), String.format("Cell at grid[%d][%d] already contains Cell.getValue == %d.", i, j, k));
+                }
+            }
+        }
+    }
 }

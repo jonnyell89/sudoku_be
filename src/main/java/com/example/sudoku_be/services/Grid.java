@@ -5,15 +5,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static com.example.sudoku_be.config.GridConfig.*;
 
 @Service
 public class Grid {
-
-    private final GridValidator gridValidator = new GridValidator();
 
     private final Cell[][] grid;
 
@@ -24,9 +21,7 @@ public class Grid {
 
     public Grid(Cell[][] grid) { // Parameterised constructor.
 
-        gridValidator.validate(grid);
-
-        this.grid = grid;
+        this.grid = GridUtils.validateGrid(grid); // Grid Cell objects validated.
     }
 
     public Cell[][] getGrid() {
@@ -136,5 +131,20 @@ public class Grid {
         Collections.addAll(containingCells, subgrid); // Add subgrid to Set.
 
         return containingCells;
+    }
+
+    public boolean isValid(int rowIndex, int colIndex, int value) {
+
+        Set<Cell> containingCells = getContainingCells(rowIndex, colIndex);
+
+        for (Cell containingCell : containingCells) {
+
+            if (containingCell.getValue() == value) {
+
+                return false;
+            }
+        }
+
+        return true;
     }
 }
