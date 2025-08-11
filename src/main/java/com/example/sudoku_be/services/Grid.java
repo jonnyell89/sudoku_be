@@ -3,9 +3,7 @@ package com.example.sudoku_be.services;
 import com.example.sudoku_be.utils.GridUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static com.example.sudoku_be.config.GridConfig.*;
 
@@ -13,6 +11,9 @@ import static com.example.sudoku_be.config.GridConfig.*;
 public class Grid {
 
     private final Cell[][] grid;
+
+    private final Random random = new Random();
+    private final int[] cellValues = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 
     public Grid() { // Default constructor.
 
@@ -94,6 +95,24 @@ public class Grid {
         return getCell(rowIndex, colIndex).getValue() == 0;
     }
 
+    public Cell findEmptyCell() {
+
+        Cell[][] grid = getGrid(); // Access grid.
+
+        for (int i = 0; i < grid.length; i++) {
+
+            for (int j = 0; j < grid[i].length; j++) {
+
+                if (isCellEmpty(i, j)) {
+
+                    return getCell(i, j);
+                }
+            }
+        }
+
+        return null;
+    }
+
     public Cell findNextEmptyCell(int rowIndex, int colIndex) {
 
         Cell[][] grid = getGrid(); // Access grid.
@@ -146,5 +165,59 @@ public class Grid {
         }
 
         return true;
+    }
+
+    public boolean populateCell(int rowIndex, int colIndex, int value) {
+
+        if (isCellEmpty(rowIndex, colIndex) && isValid(rowIndex, colIndex, value)) {
+
+            getCell(rowIndex, colIndex).setValue(value);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public void shuffleCellValues(int[] cellValues) {
+
+        for (int i = cellValues.length - 1; i > 0; i--) {
+
+            int randomIndex = random.nextInt(i + 1);
+
+            int j = cellValues[i];
+            cellValues[i] = cellValues[randomIndex];
+            cellValues[randomIndex] = j;
+        }
+    }
+
+    public boolean populateGrid() {
+
+        Cell emptyCell = findEmptyCell(); // Traversal
+
+        if (emptyCell == null) { // Base case, terminates recursion if Grid contains no empty Cells.
+
+            return true;
+        }
+
+        int rowIndex = emptyCell.getRowIndex();
+        int colIndex = emptyCell.getColIndex();
+
+        shuffleCellValues(cellValues);
+
+        for (int value : cellValues) {
+
+            if (populateCell(rowIndex, colIndex, value)) {
+
+                if (populateGrid()) {
+
+                    return true;
+                }
+
+                resetCell(rowIndex, colIndex);
+            }
+        }
+
+        return false;
     }
 }
