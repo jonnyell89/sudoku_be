@@ -3,6 +3,11 @@ package com.example.sudoku_be.services;
 import com.example.sudoku_be.utils.GridUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import static com.example.sudoku_be.config.GridConfig.*;
 
 @Service
@@ -24,7 +29,7 @@ public class Grid {
         this.grid = grid;
     }
 
-    public Cell[][] getGrid() { // NO UNIT TEST
+    public Cell[][] getGrid() {
 
         return this.grid;
     }
@@ -100,7 +105,7 @@ public class Grid {
 
         for (int i = rowIndex; i < grid.length; i++) { // Iterate over rows.
 
-            int colStart = (i == rowIndex) ? colIndex : 0;
+            int colStart = (i == rowIndex) ? colIndex : 0; // Iteration starts from specific point.
 
             for (int j = colStart; j < grid[i].length; j++) { // Iterate over columns.
 
@@ -112,5 +117,24 @@ public class Grid {
         }
 
         return null;
+    }
+
+    public Set<Cell> getContainingCells(int rowIndex, int colIndex) {
+
+        Set<Cell> containingCells = new HashSet<>();
+
+        Cell[] row = getRow(rowIndex); // Access row.
+
+        Cell[] col = getCol(colIndex); // Access column.
+
+        Cell[] subgrid = getSubgrid(rowIndex, colIndex); // Access subgrid.
+
+        Collections.addAll(containingCells, row); // Add row to Set.
+
+        Collections.addAll(containingCells, col); // Add col to Set.
+
+        Collections.addAll(containingCells, subgrid); // Add subgrid to Set.
+
+        return containingCells;
     }
 }

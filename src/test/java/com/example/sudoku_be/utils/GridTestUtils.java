@@ -24,6 +24,15 @@ public class GridTestUtils {
         return UNIT_REFERENCE.equals(unitSet);
     }
 
+    public static boolean isUnitSetValid(Set<Cell> unitSet) {
+
+        Set<Integer> valueSet = unitSet.stream()
+                .map(Cell::getValue)
+                .collect(Collectors.toSet());
+
+        return UNIT_REFERENCE.equals(valueSet);
+    }
+
     public static Cell[][] convertIntGridToCellGrid(int[][] intGrid) {
 
         Cell[][] cellGrid = new Cell[intGrid.length][intGrid.length];

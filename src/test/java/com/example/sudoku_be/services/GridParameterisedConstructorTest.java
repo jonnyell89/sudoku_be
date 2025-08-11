@@ -4,7 +4,9 @@ import com.example.sudoku_be.utils.GridTestUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.example.sudoku_be.config.GridConfig.GRID_SIZE;
+import java.util.Set;
+
+import static com.example.sudoku_be.config.GridConfig.*;
 import static com.example.sudoku_be.config.GridTestConfig.EMPTY_GRID;
 import static com.example.sudoku_be.config.GridTestConfig.TEST_GRID;
 import static org.junit.jupiter.api.Assertions.*;
@@ -137,6 +139,24 @@ public class GridParameterisedConstructorTest {
             for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
 
                 assertFalse(sudokuGrid.isCellEmpty(i, j), String.format("Cell at grid[%d][%d] should not be equal to zero.", i, j));
+            }
+        }
+    }
+
+    @Test
+    void testGetContainingCells() {
+
+        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
+
+        for (int i = 0; i < grid.length; i++) { // Iterate over rows.
+
+            for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
+
+                Set<Cell> containingCells = sudokuGrid.getContainingCells(i, j);
+
+                assertEquals(CONTAINING_UNIT_SIZE, containingCells.size());
+
+                assertTrue(GridTestUtils.isUnitSetValid(containingCells), String.format("Containing Cells at grid[%d][%d] should contain 1 to 9 inclusive.", i, j));
             }
         }
     }
