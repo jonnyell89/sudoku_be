@@ -4,19 +4,16 @@ import com.example.sudoku_be.utils.GridGeneratorUtils;
 
 public class GridGenerator {
 
-    private final Grid grid;
+    public static void populateGrid(Grid grid) {
 
-    private int[] cellValues = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] cellValues = GridGeneratorUtils.shuffleCellValues();
 
-    public GridGenerator(Grid grid) {
-
-        this.grid = grid;
-        this.cellValues = GridGeneratorUtils.shuffleCellValues(cellValues);
+        backtrackingAlgorithm(grid, cellValues);
     }
 
-    public boolean populateGrid() {
+    private static boolean backtrackingAlgorithm(Grid grid, int[] cellValues) {
 
-        Cell emptyCell = grid.findEmptyCell(); // Traversal
+        Cell emptyCell = grid.findNextEmptyCell(); // Traversal
 
         if (emptyCell == null) { // Base case, terminates recursion if Grid contains no empty Cells.
 
@@ -26,18 +23,16 @@ public class GridGenerator {
         int rowIndex = emptyCell.getRowIndex();
         int colIndex = emptyCell.getColIndex();
 
-        // GridGeneratorUtils.shuffleCellValues(cellValues);
-
         for (int value : cellValues) {
 
             if (grid.populateCell(rowIndex, colIndex, value)) {
 
-                if (populateGrid()) {
+                if (backtrackingAlgorithm(grid, cellValues)) { // Recursive step, continues to the next empty cell.
 
                     return true;
                 }
 
-                grid.resetCell(rowIndex, colIndex);
+                grid.resetCell(rowIndex, colIndex); // Backtrack
             }
         }
 

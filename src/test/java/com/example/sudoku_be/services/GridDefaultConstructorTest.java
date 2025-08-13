@@ -92,24 +92,6 @@ public class GridDefaultConstructorTest {
     }
 
     @Test
-    void testGetGridIndex() {
-
-        Cell[][] grid = sudokuGrid.getGrid();
-
-        int flatGridIndex = 0;
-
-        for (int i = 0; i < grid.length; i++) {
-
-            for (int j = 0; j < grid[i].length; j++) {
-
-                assertEquals(flatGridIndex, sudokuGrid.getGridIndex(i, j), String.format("Cell at grid[%d][%d] should have flatGridIndex equal to %d.", i, j, flatGridIndex));
-
-                flatGridIndex++;
-            }
-        }
-    }
-
-    @Test
     void testGetCell() {
 
         Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
@@ -137,27 +119,5 @@ public class GridDefaultConstructorTest {
                 assertTrue(sudokuGrid.isCellEmpty(i, j), String.format("Cell at grid[%d][%d] should be equal to zero.", i, j));
             }
         }
-    }
-
-    @Test
-    void testFindNextEmptyCell() {
-
-        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
-
-        int emptyCells = 0;
-
-        for (int i = 0; i < grid.length; i++) { // Iterate over rows.
-
-            for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
-
-                Cell nextEmptyCell = sudokuGrid.findNextEmptyCell(i, j);
-
-                assertEquals(grid[i][j], nextEmptyCell, String.format("Cell at grid[%d][%d] should be equal to zero.", i, j));
-
-                emptyCells++;
-            }
-        }
-
-        assertEquals(grid.length * grid[0].length, emptyCells, String.format("Grid should contain %d empty cells.", grid.length * grid[0].length));
     }
 }

@@ -5,7 +5,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class SudokuService {
 
-    // Grid grid
-    // GridGenerator gridGenerator(grid)
-    // GridValidator gridValidator(grid)
+    private Grid grid;
+
+    public SudokuService() {
+
+        this.grid = new Grid();
+    }
+
+    public void generatePuzzle() {
+
+        GridGenerator.populateGrid(this.grid);
+    }
 }

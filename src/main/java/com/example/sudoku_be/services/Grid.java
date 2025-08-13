@@ -70,11 +70,6 @@ public class Grid {
         return subgrid;
     }
 
-    public int getGridIndex(int rowIndex, int colIndex) {
-
-        return rowIndex * getGrid().length + colIndex;
-    }
-
     public Cell getCell(int rowIndex, int colIndex) {
 
         return getGrid()[rowIndex][colIndex];
@@ -90,33 +85,13 @@ public class Grid {
         return getCell(rowIndex, colIndex).getValue() == 0;
     }
 
-    public Cell findEmptyCell() {
+    public Cell findNextEmptyCell() {
 
         Cell[][] grid = getGrid(); // Access grid.
 
-        for (int i = 0; i < grid.length; i++) {
+        for (int i = 0; i < grid.length; i++) { // Iterate over rows.
 
-            for (int j = 0; j < grid[i].length; j++) {
-
-                if (isCellEmpty(i, j)) {
-
-                    return getCell(i, j);
-                }
-            }
-        }
-
-        return null;
-    }
-
-    public Cell findNextEmptyCell(int rowIndex, int colIndex) {
-
-        Cell[][] grid = getGrid(); // Access grid.
-
-        for (int i = rowIndex; i < grid.length; i++) { // Iterate over rows.
-
-            int colStart = (i == rowIndex) ? colIndex : 0; // Iteration starts from specific point.
-
-            for (int j = colStart; j < grid[i].length; j++) { // Iterate over columns.
+            for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
 
                 if (isCellEmpty(i, j)) {
 
