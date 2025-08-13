@@ -8,7 +8,7 @@ public class GridGenerator {
 
     public static void populateGrid(Grid grid) {
 
-        int[] cellValues = GridGeneratorUtils.shuffleCellValues(CELL_VALUES);
+        int[] cellValues = GridGeneratorUtils.shuffleCellValues(CELL_VALUES); // Ensures cellValues are shuffled only once, at the start of the recursive process.
 
         populateGridRecursion(grid, cellValues);
     }
@@ -22,19 +22,19 @@ public class GridGenerator {
             return true;
         }
 
-        int rowIndex = emptyCell.getRowIndex();
-        int colIndex = emptyCell.getColIndex();
+        int rowIndex = emptyCell.getRowIndex(); // Unpacks i.
+        int colIndex = emptyCell.getColIndex(); // Unpacks j.
 
-        for (int value : cellValues) {
+        for (int value : cellValues) { // Iterates over shuffledCellValues.
 
-            if (grid.populateCell(rowIndex, colIndex, value)) {
+            if (grid.populateCell(rowIndex, colIndex, value)) { // Attempts to populateCell with shuffledCellValue.
 
-                if (populateGridRecursion(grid, cellValues)) { // Recursive step, continues to the next empty cell.
+                if (populateGridRecursion(grid, cellValues)) { // Recursive step, continues traversal until base case is met.
 
                     return true;
                 }
 
-                grid.resetCell(rowIndex, colIndex); // Backtrack
+                grid.resetCell(rowIndex, colIndex); // Backtracks if there are no valid Cell placements.
             }
         }
 
@@ -43,37 +43,41 @@ public class GridGenerator {
 
     public static boolean isGridUnique(Grid grid) {
 
-        int[] cellValues = GridGeneratorUtils.shuffleCellValues(CELL_VALUES);
+        int[] cellValues = CELL_VALUES.clone(); // Unnecessary to shuffle cellValues.
 
-        return isGridUniqueRecursion(grid, cellValues) <= 1;
+        int[] solutionCount = {0}; // Mutable solution counter.
+
+        isGridUniqueRecursion(grid, cellValues, solutionCount);
+
+        return solutionCount[0] == 1; // Returns true if there is exactly one solution.
     }
 
-    private static int isGridUniqueRecursion(Grid grid, int[] cellValues) {
+    private static void isGridUniqueRecursion(Grid grid, int[] cellValues, int[] solutionCount) {
+
+        if (solutionCount[0] > 1) return; // Terminates recursion if Grid contains more than one solution.
 
         Cell emptyCell = grid.findNextEmptyCell(); // Traversal
 
-        if (emptyCell == null) {
+        if (emptyCell == null) { // Base case, terminates recursion and increments solutionCount if Grid contains no empty Cells.
 
-            return 1;
+            solutionCount[0]++;
+
+            return;
         }
 
-        int rowIndex = emptyCell.getRowIndex();
-        int colIndex = emptyCell.getColIndex();
+        int rowIndex = emptyCell.getRowIndex(); // Unpacks i;
+        int colIndex = emptyCell.getColIndex(); // Unpacks j;
 
-        int solutionCount = 0;
+        for (int value : cellValues) { // Iterates over cellValues.
 
-        for (int value : cellValues) {
+            if (grid.populateCell(rowIndex, colIndex, value)) { // Attempts to populateCell with cellValue.
 
-            if (grid.populateCell(rowIndex, colIndex, value)) {
+                isGridUniqueRecursion(grid, cellValues, solutionCount); // Recursive step, continues traversal until base case is met.
 
-                solutionCount += isGridUniqueRecursion(grid, cellValues);
+                grid.resetCell(rowIndex, colIndex); // Backtracks after recursive tree has been fully explored.
 
-                if (solutionCount > 1) return solutionCount;
-
-                grid.resetCell(rowIndex, colIndex);
+                if (solutionCount[0] > 1) return; // Terminates recursion if Grid contains more than one solution.
             }
         }
-
-        return solutionCount;
     }
 }
