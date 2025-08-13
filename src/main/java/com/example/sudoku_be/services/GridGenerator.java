@@ -2,16 +2,18 @@ package com.example.sudoku_be.services;
 
 import com.example.sudoku_be.utils.GridGeneratorUtils;
 
+import static com.example.sudoku_be.config.GridConfig.CELL_VALUES;
+
 public class GridGenerator {
 
     public static void populateGrid(Grid grid) {
 
-        int[] cellValues = GridGeneratorUtils.shuffleCellValues();
+        int[] cellValues = GridGeneratorUtils.shuffleCellValues(CELL_VALUES);
 
-        backtrackingAlgorithm(grid, cellValues);
+        populateGridRecursion(grid, cellValues);
     }
 
-    private static boolean backtrackingAlgorithm(Grid grid, int[] cellValues) {
+    private static boolean populateGridRecursion(Grid grid, int[] cellValues) {
 
         Cell emptyCell = grid.findNextEmptyCell(); // Traversal
 
@@ -27,7 +29,7 @@ public class GridGenerator {
 
             if (grid.populateCell(rowIndex, colIndex, value)) {
 
-                if (backtrackingAlgorithm(grid, cellValues)) { // Recursive step, continues to the next empty cell.
+                if (populateGridRecursion(grid, cellValues)) { // Recursive step, continues to the next empty cell.
 
                     return true;
                 }
@@ -37,5 +39,41 @@ public class GridGenerator {
         }
 
         return false;
+    }
+
+    public static boolean isGridUnique(Grid grid) {
+
+        int[] cellValues = GridGeneratorUtils.shuffleCellValues(CELL_VALUES);
+
+        return isGridUniqueRecursion(grid, cellValues) <= 1;
+    }
+
+    private static int isGridUniqueRecursion(Grid grid, int[] cellValues) {
+
+        Cell emptyCell = grid.findNextEmptyCell(); // Traversal
+
+        if (emptyCell == null) {
+
+            return 1;
+        }
+
+        int rowIndex = emptyCell.getRowIndex();
+        int colIndex = emptyCell.getColIndex();
+
+        int solutionCount = 0;
+
+        for (int value : cellValues) {
+
+            if (grid.populateCell(rowIndex, colIndex, value)) {
+
+                solutionCount += isGridUniqueRecursion(grid, cellValues);
+
+                if (solutionCount > 1) return solutionCount;
+
+                grid.resetCell(rowIndex, colIndex);
+            }
+        }
+
+        return solutionCount;
     }
 }

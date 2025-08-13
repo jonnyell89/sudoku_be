@@ -10,20 +10,22 @@ public class GridGeneratorUtils {
 
     private static final Random random = new Random();
 
-    public static int[] shuffleCellValues() { // Fisher-Yates Shuffle Algorithm.
+    public static int[] shuffleCellValues(int[] cellValues) { // Fisher-Yates Shuffle Algorithm.
 
-        int[] cellValues = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] shuffledCellValues = cellValues.clone();
 
-        for (int i = cellValues.length - 1; i > 0; i--) {
+        for (int i = shuffledCellValues.length - 1; i > 0; i--) {
 
             int randomIndex = random.nextInt(i + 1);
 
-            int j = cellValues[i];
-            cellValues[i] = cellValues[randomIndex];
-            cellValues[randomIndex] = j;
+            int j = shuffledCellValues[i];
+
+            shuffledCellValues[i] = shuffledCellValues[randomIndex];
+
+            shuffledCellValues[randomIndex] = j;
         }
 
-        return cellValues;
+        return shuffledCellValues;
     }
 
     public static void printGrid(Grid grid) {
