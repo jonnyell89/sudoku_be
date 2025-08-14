@@ -41,18 +41,18 @@ public class GridGenerator {
         return false;
     }
 
-    public static boolean isGridUnique(Grid grid) {
+    public static boolean isSolutionUnique(Grid grid) {
 
         int[] cellValues = CELL_VALUES.clone(); // Unnecessary to shuffle cellValues.
 
         int[] solutionCount = {0}; // Mutable solution counter.
 
-        isGridUniqueRecursion(grid, cellValues, solutionCount);
+        isSolutionUniqueRecursion(grid, cellValues, solutionCount);
 
         return solutionCount[0] == 1; // Returns true if there is exactly one solution.
     }
 
-    private static void isGridUniqueRecursion(Grid grid, int[] cellValues, int[] solutionCount) {
+    private static void isSolutionUniqueRecursion(Grid grid, int[] cellValues, int[] solutionCount) {
 
         if (solutionCount[0] > 1) return; // Terminates recursion if Grid contains more than one solution.
 
@@ -72,7 +72,7 @@ public class GridGenerator {
 
             if (grid.populateCell(rowIndex, colIndex, value)) { // Attempts to populateCell with cellValue.
 
-                isGridUniqueRecursion(grid, cellValues, solutionCount); // Recursive step, continues traversal until base case is met.
+                isSolutionUniqueRecursion(grid, cellValues, solutionCount); // Recursive step, continues traversal until base case is met.
 
                 grid.resetCell(rowIndex, colIndex); // Backtracks after recursive tree has been fully explored.
 

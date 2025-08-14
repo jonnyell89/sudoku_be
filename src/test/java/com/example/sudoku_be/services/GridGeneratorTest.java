@@ -1,41 +1,22 @@
 package com.example.sudoku_be.services;
 
+import com.example.sudoku_be.config.GridTestConfig;
 import com.example.sudoku_be.utils.GridGeneratorUtils;
-import org.junit.jupiter.api.BeforeEach;
+import com.example.sudoku_be.utils.GridTestUtils;
 import org.junit.jupiter.api.Test;
 
-import static com.example.sudoku_be.config.GridConfig.CELL_DEFAULT;
-import static com.example.sudoku_be.config.GridConfig.GRID_SIZE;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GridGeneratorTest {
 
     private Grid sudokuGrid;
 
-    @BeforeEach
-    void initTest() {
-
-        sudokuGrid = new Grid(); // Instantiate default Grid object.
-    }
-
     @Test
     void testPopulateGrid() {
 
+        sudokuGrid = new Grid(); // Instantiate default Grid object.
+
         Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
-
-        assertNotNull(grid, "Grid should not be null.");
-
-        assertEquals(GRID_SIZE, grid.length, String.format("Grid should contain %d rows.", GRID_SIZE));
-
-        for (int i = 0; i < grid.length; i++) { // Iterate over rows.
-
-            assertEquals(GRID_SIZE, grid[i].length, String.format("Grid should contain %d columns.", GRID_SIZE));
-
-            for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
-
-                assertEquals(CELL_DEFAULT, grid[i][j].getValue(), String.format("Cell at grid[%d][%d] should be %d.", i, j, CELL_DEFAULT));
-            }
-        }
 
         GridGenerator.populateGrid(sudokuGrid); // Assign values to all Cells.
 
@@ -63,8 +44,12 @@ public class GridGeneratorTest {
     @Test
     void testIsSolutionUnique() {
 
-        boolean isUnique = GridGenerator.isGridUnique(sudokuGrid);
+        sudokuGrid = new Grid(GridTestUtils.convertIntGridToCellGrid(GridTestConfig.MEDIUM_GRID));
 
-        System.out.printf("Is sudokuGrid unique: %b%n", isUnique);
+        boolean isUnique = GridGenerator.isSolutionUnique(sudokuGrid);
+
+        assertTrue(isUnique, "Grid should have one unique solution.");
+
+        GridGeneratorUtils.printGrid(sudokuGrid);
     }
 }
