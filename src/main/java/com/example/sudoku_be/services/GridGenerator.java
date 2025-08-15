@@ -80,4 +80,16 @@ public class GridGenerator {
             }
         }
     }
+
+    public static void removeCells(Grid grid) {
+
+        Cell[] removableCells = grid.getRemovableCells();
+
+        GridGeneratorUtils.shuffleCells(removableCells);
+
+        for (Cell cell : removableCells) {
+
+            // difficultyLevel Enum?
+        }
+    }
 }

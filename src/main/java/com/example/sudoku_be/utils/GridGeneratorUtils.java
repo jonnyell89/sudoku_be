@@ -28,6 +28,24 @@ public class GridGeneratorUtils {
         return shuffledCellValues;
     }
 
+    public static Cell[] shuffleCells(Cell[] cells) { // Fisher-Yates Shuffle Algorithm.
+
+        Cell[] shuffledCells = cells.clone();
+
+        for (int i = shuffledCells.length - 1; i > 0; i--) {
+
+            int randomIndex = random.nextInt(i + 1);
+
+            Cell j = shuffledCells[i];
+
+            shuffledCells[i] = shuffledCells[randomIndex];
+
+            shuffledCells[randomIndex] = j;
+        }
+
+        return shuffledCells;
+    }
+
     public static void printGrid(Grid grid) {
 
         Cell[][] sudokuGrid = grid.getGrid(); // Access grid.
