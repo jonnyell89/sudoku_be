@@ -1,6 +1,7 @@
 package com.example.sudoku_be.services;
 
 import com.example.sudoku_be.config.GridTestConfig;
+import com.example.sudoku_be.enums.Difficulty;
 import com.example.sudoku_be.utils.GridGeneratorUtils;
 import com.example.sudoku_be.utils.GridTestUtils;
 import org.junit.jupiter.api.Test;
@@ -49,6 +50,20 @@ public class GridGeneratorTest {
         boolean isUnique = GridGenerator.isSolutionUnique(sudokuGrid);
 
         assertTrue(isUnique, "Grid should have one unique solution.");
+
+        GridGeneratorUtils.printGrid(sudokuGrid);
+    }
+
+    @Test
+    void testRemoveCells() {
+
+        sudokuGrid = new Grid(GridTestUtils.convertIntGridToCellGrid(GridTestConfig.TEST_GRID));
+
+        int targetCellRemovals = GridGeneratorUtils.getTargetCellRemovals(Difficulty.MEDIUM);
+
+        GridGenerator.removeCells(sudokuGrid, targetCellRemovals);
+
+        assertEquals(targetCellRemovals, sudokuGrid.countEmptyCells(), String.format("Grid should %d empty cells.", targetCellRemovals));
 
         GridGeneratorUtils.printGrid(sudokuGrid);
     }

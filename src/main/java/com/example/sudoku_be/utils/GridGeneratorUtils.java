@@ -1,5 +1,6 @@
 package com.example.sudoku_be.utils;
 
+import com.example.sudoku_be.enums.Difficulty;
 import com.example.sudoku_be.services.Cell;
 import com.example.sudoku_be.services.Grid;
 
@@ -10,9 +11,9 @@ public class GridGeneratorUtils {
 
     private static final Random random = new Random();
 
-    public static int[] shuffleCellValues(int[] cellValues) { // Fisher-Yates Shuffle Algorithm.
+    public static int[] shuffleValues(int[] values) { // Fisher-Yates Shuffle Algorithm.
 
-        int[] shuffledCellValues = cellValues.clone();
+        int[] shuffledCellValues = values.clone();
 
         for (int i = shuffledCellValues.length - 1; i > 0; i--) {
 
@@ -63,5 +64,14 @@ public class GridGeneratorUtils {
 
             System.out.println(Arrays.toString(rowValues));
         }
+    }
+
+    public static int getTargetCellRemovals(Difficulty difficulty) {
+
+        int[] difficultRange = difficulty.getRange();
+
+        int randomIndex = random.nextInt(difficultRange.length);
+
+        return difficultRange[randomIndex];
     }
 }

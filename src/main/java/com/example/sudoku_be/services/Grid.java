@@ -167,13 +167,31 @@ public class Grid {
         return emptyCells;
     }
 
+    public int countRemovableCells() {
+
+        int removableCells = 0;
+
+        for (int i = 0; i < grid.length; i++) {
+
+            for (int j = 0; j < grid[i].length; j++) {
+
+                if (!isCellEmpty(i, j)) {
+
+                    removableCells++;
+                }
+            }
+        }
+
+        return removableCells;
+    }
+
     public Cell[] getRemovableCells() {
 
-        int emptyCells = countEmptyCells();
+        int count = countRemovableCells();
 
-        Cell[] removableCells = new Cell[emptyCells];
+        Cell[] removableCells = new Cell[count];
 
-        int removableCellsIndex = 0;
+        int index = 0;
 
         for (int i = 0; i < grid.length; i++) {
 
@@ -181,9 +199,9 @@ public class Grid {
 
                 if (getCell(i, j).getValue() != 0) {
 
-                    removableCells[removableCellsIndex] = getCell(i, j);
+                    removableCells[index] = getCell(i, j);
 
-                    removableCellsIndex++;
+                    index++;
                 }
             }
         }

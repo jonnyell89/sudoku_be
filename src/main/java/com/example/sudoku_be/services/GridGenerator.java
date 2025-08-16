@@ -8,7 +8,7 @@ public class GridGenerator {
 
     public static void populateGrid(Grid grid) {
 
-        int[] cellValues = GridGeneratorUtils.shuffleCellValues(CELL_VALUES); // Ensures cellValues are shuffled only once, at the start of the recursive process.
+        int[] cellValues = GridGeneratorUtils.shuffleValues(CELL_VALUES); // Ensures cellValues are shuffled only once, at the start of the recursive process.
 
         populateGridRecursion(grid, cellValues);
     }
@@ -81,15 +81,39 @@ public class GridGenerator {
         }
     }
 
-    public static void removeCells(Grid grid) {
+    public static void removeCells(Grid grid, int target) {
 
         Cell[] removableCells = grid.getRemovableCells();
 
-        GridGeneratorUtils.shuffleCells(removableCells);
+        Cell[] shuffledCells = GridGeneratorUtils.shuffleCells(removableCells);
 
-        for (Cell cell : removableCells) {
+        int successfulRemovals = 0;
 
-            // difficultyLevel Enum?
+        for (Cell cell : shuffledCells) {
+
+            if (removeCell(grid, cell)) {
+
+                successfulRemovals++;
+            }
+
+            if (target == successfulRemovals) {
+
+                break;
+            }
         }
+    }
+
+    private static boolean removeCell(Grid grid, Cell cell) {
+
+        grid.resetCell(cell.getRowIndex(), cell.getColIndex());
+
+        if (isSolutionUnique(grid)) {
+
+            return true;
+        }
+
+        grid.getCell(cell.getRowIndex(), cell.getColIndex()).setValue(cell.getValue());
+
+        return false;
     }
 }
