@@ -93,10 +93,7 @@ public class Grid {
 
             for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
 
-                if (isCellEmpty(i, j)) {
-
-                    return getCell(i, j);
-                }
+                if (isCellEmpty(i, j)) return getCell(i, j);
             }
         }
 
@@ -128,10 +125,7 @@ public class Grid {
 
         for (Cell containingCell : containingCells) {
 
-            if (containingCell.getValue() == value) {
-
-                return false;
-            }
+            if (containingCell.getValue() == value) return false;
         }
 
         return true;
@@ -157,10 +151,7 @@ public class Grid {
 
             for (int j = 0; j < grid[i].length; j++) {
 
-                if (isCellEmpty(i, j)) {
-
-                    emptyCells++;
-                }
+                if (isCellEmpty(i, j)) emptyCells++;
             }
         }
 
@@ -175,10 +166,7 @@ public class Grid {
 
             for (int j = 0; j < grid[i].length; j++) {
 
-                if (!isCellEmpty(i, j)) {
-
-                    removableCells++;
-                }
+                if (!isCellEmpty(i, j)) removableCells++;
             }
         }
 

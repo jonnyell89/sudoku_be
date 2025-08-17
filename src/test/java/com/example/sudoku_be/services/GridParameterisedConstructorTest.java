@@ -36,7 +36,7 @@ public class GridParameterisedConstructorTest {
 
             for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
 
-                assertTrue(GridValidator.isCellValid(grid[i][j]), String.format("Cell at grid[%d][%d] should be between 1 and 9 inclusive.", i, j));
+                assertTrue(Validator.isCellValid(grid[i][j]), String.format("Cell at grid[%d][%d] should be between 1 and 9 inclusive.", i, j));
             }
         }
     }
@@ -54,7 +54,7 @@ public class GridParameterisedConstructorTest {
 
             for (int j = 0; j < row.length; j++) { // Iterate over cells.
 
-                assertTrue(GridValidator.isCellValid(row[j]), String.format("Cell at row[%d] should be between 1 and 9 inclusive.", j));
+                assertTrue(Validator.isCellValid(row[j]), String.format("Cell at row[%d] should be between 1 and 9 inclusive.", j));
             }
         }
     }
@@ -72,7 +72,7 @@ public class GridParameterisedConstructorTest {
 
             for (int j = 0; j < col.length; j++) { // Iterate over cells.
 
-                assertTrue(GridValidator.isCellValid(col[j]), String.format("Cell at col[%d] should be between 1 and 9 inclusive.", j));
+                assertTrue(Validator.isCellValid(col[j]), String.format("Cell at col[%d] should be between 1 and 9 inclusive.", j));
             }
         }
     }
@@ -90,7 +90,7 @@ public class GridParameterisedConstructorTest {
 
                 assertEquals(GRID_SIZE, subgrid.length, String.format("Subgrid should contain %d cells.", GRID_SIZE));
 
-                assertTrue(GridValidator.isUnitValid(subgrid), String.format("Subgrid at grid[%d][%d] should contain 1 to 9 inclusive.", i, j));
+                assertTrue(Validator.isUnitValid(subgrid), String.format("Subgrid at grid[%d][%d] should contain 1 to 9 inclusive.", i, j));
             }
         }
     }
@@ -156,7 +156,7 @@ public class GridParameterisedConstructorTest {
 
                 assertEquals(CONTAINING_UNIT_SIZE, containingCells.size());
 
-                assertTrue(GridValidator.isUnitValid(containingCells), String.format("Containing Cells at grid[%d][%d] should contain 1 to 9 inclusive.", i, j));
+                assertTrue(Validator.isUnitValid(containingCells), String.format("Containing Cells at grid[%d][%d] should contain 1 to 9 inclusive.", i, j));
             }
         }
     }

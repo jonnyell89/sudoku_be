@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import static com.example.sudoku_be.config.GridConfig.UNIT_REFERENCE;
 
-public class GridValidator {
+public class Validator {
 
     public static boolean isCellValid(Cell cell) {
 

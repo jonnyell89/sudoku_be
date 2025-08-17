@@ -7,7 +7,7 @@ import com.example.sudoku_be.services.Grid;
 import java.util.Arrays;
 import java.util.Random;
 
-public class GridGeneratorUtils {
+public class SudokuGridUtils {
 
     private static final Random random = new Random();
 
