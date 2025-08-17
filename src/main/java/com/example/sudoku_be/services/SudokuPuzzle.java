@@ -8,9 +8,9 @@ public class SudokuPuzzle {
 
     public static void removeCells(Grid grid, int target) {
 
-        Cell[] removableCells = grid.getRemovableCells();
+        Cell[] setCells = grid.getSetCells();
 
-        Cell[] shuffledCells = SudokuGridUtils.shuffleCells(removableCells);
+        Cell[] shuffledCells = SudokuGridUtils.shuffleCells(setCells);
 
         int successfulRemovals = 0;
 
@@ -62,7 +62,7 @@ public class SudokuPuzzle {
 
         for (int value : cellValues) { // Iterates over cellValues.
 
-            if (grid.populateCell(rowIndex, colIndex, value)) { // Attempts to populateCell with cellValue.
+            if (grid.setCell(rowIndex, colIndex, value)) { // Attempts to setCell with cellValue.
 
                 isSolutionUniqueRecursion(grid, cellValues, solutionCount); // Recursive step, continues traversal until base case is met.
 

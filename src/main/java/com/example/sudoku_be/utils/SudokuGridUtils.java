@@ -66,7 +66,7 @@ public class SudokuGridUtils {
         }
     }
 
-    public static int getTargetCellRemovals(Difficulty difficulty) {
+    public static int getRemovalTarget(Difficulty difficulty) {
 
         int[] difficultRange = difficulty.getRange();
 

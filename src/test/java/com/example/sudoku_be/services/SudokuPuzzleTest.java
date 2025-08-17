@@ -28,11 +28,11 @@ public class SudokuPuzzleTest {
 
         Grid sudokuGrid = new Grid(GridTestUtils.convertIntGridToCellGrid(GridTestConfig.TEST_GRID));
 
-        int targetCellRemovals = SudokuGridUtils.getTargetCellRemovals(Difficulty.MEDIUM);
+        int removalTarget = SudokuGridUtils.getRemovalTarget(Difficulty.MEDIUM);
 
-        SudokuPuzzle.removeCells(sudokuGrid, targetCellRemovals);
+        SudokuPuzzle.removeCells(sudokuGrid, removalTarget);
 
-        assertEquals(targetCellRemovals, sudokuGrid.countEmptyCells(), String.format("Grid should contain %d empty cells.", targetCellRemovals));
+        assertEquals(removalTarget, sudokuGrid.countEmptyCells(), String.format("Grid should contain %d empty cells.", removalTarget));
 
         SudokuGridUtils.printGrid(sudokuGrid);
     }

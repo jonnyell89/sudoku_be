@@ -13,9 +13,7 @@ public class Cell {
         this.value = 0;
     }
 
-    public int getRowIndex() {
-        return rowIndex;
-    }
+    public int getRowIndex() { return rowIndex; }
 
     // public void setRowIndex(int rowIndex) { this.rowIndex = rowIndex; }
 
@@ -29,9 +27,7 @@ public class Cell {
         return value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
+    public void setValue(int value) { this.value = value; }
 
     @Override
     public String toString() {

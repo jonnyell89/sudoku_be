@@ -8,13 +8,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SudokuGridTest {
 
     @Test
-    void testPopulateGrid() {
+    void testSetGrid() {
 
         Grid sudokuGrid = new Grid(); // Instantiate default Grid object.
 
         Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
 
-        SudokuGrid.populateGrid(sudokuGrid); // Assign values to all Cells.
+        SudokuGrid.setGrid(sudokuGrid); // Assign values to all Cells.
 
         for (int i = 0; i < grid.length; i++) { // Iterate over rows.
 

@@ -80,11 +80,6 @@ public class Grid {
         getCell(rowIndex, colIndex).setValue(0);
     }
 
-    public boolean isCellEmpty(int rowIndex, int colIndex) {
-
-        return getCell(rowIndex, colIndex).getValue() == 0;
-    }
-
     public Cell findNextEmptyCell() {
 
         Cell[][] grid = getGrid(); // Access grid.
@@ -100,40 +95,26 @@ public class Grid {
         return null;
     }
 
-    public Set<Cell> getContainingCells(int rowIndex, int colIndex) {
+    public boolean isCellEmpty(int rowIndex, int colIndex) {
 
-        Set<Cell> containingCells = new HashSet<>();
-
-        Cell[] row = getRow(rowIndex); // Access row.
-
-        Cell[] col = getCol(colIndex); // Access column.
-
-        Cell[] subgrid = getSubgrid(rowIndex, colIndex); // Access subgrid.
-
-        Collections.addAll(containingCells, row); // Add row to Set.
-
-        Collections.addAll(containingCells, col); // Add col to Set.
-
-        Collections.addAll(containingCells, subgrid); // Add subgrid to Set.
-
-        return containingCells;
+        return getCell(rowIndex, colIndex).getValue() == 0;
     }
 
-    public boolean isValid(int rowIndex, int colIndex, int value) {
+    public boolean isCellValid(int rowIndex, int colIndex, int value) {
 
-        Set<Cell> containingCells = getContainingCells(rowIndex, colIndex);
+        Set<Cell> relatedCells = getRelatedCells(rowIndex, colIndex);
 
-        for (Cell containingCell : containingCells) {
+        for (Cell relatedCell : relatedCells) {
 
-            if (containingCell.getValue() == value) return false;
+            if (relatedCell.getValue() == value) return false;
         }
 
         return true;
     }
 
-    public boolean populateCell(int rowIndex, int colIndex, int value) {
+    public boolean setCell(int rowIndex, int colIndex, int value) {
 
-        if (isCellEmpty(rowIndex, colIndex) && isValid(rowIndex, colIndex, value)) {
+        if (isCellEmpty(rowIndex, colIndex) && isCellValid(rowIndex, colIndex, value)) {
 
             getCell(rowIndex, colIndex).setValue(value);
 
@@ -141,6 +122,25 @@ public class Grid {
         }
 
         return false;
+    }
+
+    public Set<Cell> getRelatedCells(int rowIndex, int colIndex) {
+
+        Set<Cell> relatedCells = new HashSet<>();
+
+        Cell[] row = getRow(rowIndex); // Access row.
+
+        Cell[] col = getCol(colIndex); // Access column.
+
+        Cell[] subgrid = getSubgrid(rowIndex, colIndex); // Access subgrid.
+
+        Collections.addAll(relatedCells, row); // Add row to Set.
+
+        Collections.addAll(relatedCells, col); // Add col to Set.
+
+        Collections.addAll(relatedCells, subgrid); // Add subgrid to Set.
+
+        return relatedCells;
     }
 
     public int countEmptyCells() {
@@ -158,26 +158,26 @@ public class Grid {
         return emptyCells;
     }
 
-    public int countRemovableCells() {
+    public int countSetCells() {
 
-        int removableCells = 0;
+        int setCells = 0;
 
         for (int i = 0; i < grid.length; i++) {
 
             for (int j = 0; j < grid[i].length; j++) {
 
-                if (!isCellEmpty(i, j)) removableCells++;
+                if (!isCellEmpty(i, j)) setCells++;
             }
         }
 
-        return removableCells;
+        return setCells;
     }
 
-    public Cell[] getRemovableCells() {
+    public Cell[] getSetCells() {
 
-        int count = countRemovableCells();
+        int count = countSetCells();
 
-        Cell[] removableCells = new Cell[count];
+        Cell[] setCells = new Cell[count];
 
         int index = 0;
 
@@ -187,13 +187,13 @@ public class Grid {
 
                 if (getCell(i, j).getValue() != 0) {
 
-                    removableCells[index] = getCell(i, j);
+                    setCells[index] = getCell(i, j);
 
                     index++;
                 }
             }
         }
 
-        return removableCells;
+        return setCells;
     }
 }

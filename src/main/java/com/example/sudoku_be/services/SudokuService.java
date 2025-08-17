@@ -14,6 +14,6 @@ public class SudokuService {
 
     public void generatePuzzle() {
 
-        SudokuGrid.populateGrid(this.grid);
+        SudokuGrid.setGrid(this.grid);
     }
 }
