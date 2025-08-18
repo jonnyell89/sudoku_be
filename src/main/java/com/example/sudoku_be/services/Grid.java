@@ -100,6 +100,11 @@ public class Grid {
         return getCell(rowIndex, colIndex).getValue() == 0;
     }
 
+    public boolean isCellSet(int rowIndex, int colIndex) {
+
+        return getCell(rowIndex, colIndex).getValue() != 0;
+    }
+
     public boolean isCellValid(int rowIndex, int colIndex, int value) {
 
         Set<Cell> relatedCells = getRelatedCells(rowIndex, colIndex);
@@ -166,11 +171,35 @@ public class Grid {
 
             for (int j = 0; j < grid[i].length; j++) {
 
-                if (!isCellEmpty(i, j)) setCells++;
+                if (isCellSet(i, j)) setCells++;
             }
         }
 
         return setCells;
+    }
+
+    public Cell[] getEmptyCells() {
+
+        int count = countEmptyCells();
+
+        Cell[] emptyCells = new Cell[count];
+
+        int index = 0;
+
+        for (int i = 0; i < grid.length; i++) {
+
+            for (int j = 0; j < grid[i].length; j++) {
+
+                if (isCellEmpty(i, j)) {
+
+                    emptyCells[index] = getCell(i, j);
+
+                    index++;
+                }
+            }
+        }
+
+        return emptyCells;
     }
 
     public Cell[] getSetCells() {
@@ -185,7 +214,7 @@ public class Grid {
 
             for (int j = 0; j < grid[i].length; j++) {
 
-                if (getCell(i, j).getValue() != 0) {
+                if (isCellSet(i, j)) {
 
                     setCells[index] = getCell(i, j);
 

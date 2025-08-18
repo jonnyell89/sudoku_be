@@ -2,7 +2,7 @@ package com.example.sudoku_be.utils;
 
 import com.example.sudoku_be.services.Cell;
 
-import static com.example.sudoku_be.config.GridConfig.CELL_DEFAULT;
+import static com.example.sudoku_be.config.GridConfig.CELL_VALUES_DEFAULT;
 import static com.example.sudoku_be.config.GridConfig.GRID_SIZE;
 
 public class GridUtils {
@@ -42,8 +42,8 @@ public class GridUtils {
 
                 Cell cell = grid[i][j]; // Access cell.
 
-                if (cell.getValue() < CELL_DEFAULT || cell.getValue() > GRID_SIZE) {
-                    throw new IllegalArgumentException(String.format("Grid cell should contain values between %d and %d inclusive.", CELL_DEFAULT, GRID_SIZE));
+                if (cell.getValue() < CELL_VALUES_DEFAULT || cell.getValue() > GRID_SIZE) {
+                    throw new IllegalArgumentException(String.format("Grid cell should contain values between %d and %d inclusive.", CELL_VALUES_DEFAULT, GRID_SIZE));
                 }
             }
         }

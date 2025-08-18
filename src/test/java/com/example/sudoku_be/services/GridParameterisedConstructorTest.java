@@ -104,7 +104,7 @@ public class GridParameterisedConstructorTest {
 
             for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
 
-                Cell cell = sudokuGrid.getCell(i, j);
+                Cell cell = sudokuGrid.getCell(i, j); // Access cell.
 
                 assertEquals(grid[i][j], cell, String.format("Cell at grid[%d][%d] should be equal to sudokuGrid.getCell(%d, %d)", i, j, i, j));
             }
@@ -122,11 +122,19 @@ public class GridParameterisedConstructorTest {
 
                 sudokuGrid.resetCell(i, j);
 
-                int cell = sudokuGrid.getCell(i, j).getValue();
+                int cell = sudokuGrid.getCell(i, j).getValue(); // Access cell value.
 
                 assertEquals(EMPTY_GRID[i][j], cell, String.format("Cell at grid[%d][%d] should be equal to zero.", i, j));
             }
         }
+    }
+
+    @Test
+    void testFindNextEmptyCell() {
+
+        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
+
+        assertNull(sudokuGrid.findNextEmptyCell(), "Grid should contain no empty cells.");
     }
 
     @Test
@@ -144,19 +152,67 @@ public class GridParameterisedConstructorTest {
     }
 
     @Test
+    void testIsCellSet() {
+
+        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
+
+        for (int i = 0; i < grid.length; i++) { // Iterate over rows.
+
+            for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
+
+                assertTrue(sudokuGrid.isCellSet(i, j), String.format("Cell at grid[%d][%d] should contain a value between 1 and 9 inclusive.", i, j));
+            }
+        }
+    }
+
+    @Test
     void testIsCellValid() {
 
         Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
 
-        for (int i = 0; i < grid.length; i++) {
+        for (int i = 0; i < grid.length; i++) { // Iterate over rows.
 
-            for (int j = 0; j < grid[i].length; j++) {
+            for (int j = 0; j < grid[i].length; j++) { // Iterate over columns.
 
-                for (int k = 1; k < UNIT_SIZE + 1; k++) {
+                for (int cellValue : CELL_VALUES) {
 
-                    assertFalse(sudokuGrid.isCellValid(i, j, k), String.format("Cell at grid[%d][%d] already contains Cell.getValue == %d.", i, j, k));
+                    assertFalse(sudokuGrid.isCellValid(i, j, cellValue), String.format("Cell at grid[%d][%d] should contain a value between 1 and 9 inclusive.", i, j));
                 }
             }
+        }
+    }
+
+    @Test
+    void testSetCell() {
+
+        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
+
+        int i = grid.length - 1; // The last row in the grid.
+
+        Cell[] row = sudokuGrid.getRow(i); // Access last row in grid.
+
+        Cell[] rowDeepCopy = new Cell[row.length];
+
+        for (int j = 0; j < row.length; j++) { // Iterate over cells.
+
+            rowDeepCopy[j] = new Cell(row[j].getRowIndex(), row[j].getColIndex(), row[j].getValue()); // Deep copy row.
+        }
+
+        for (int j = 0; j < grid.length; j++) { // Iterate over cells.
+
+            sudokuGrid.resetCell(i, j);
+
+            assertTrue(sudokuGrid.isCellEmpty(i, j), String.format("Cell at grid[%d][%d] should be equal to zero.", i, j));
+        }
+
+        for (int j = 0; j < grid.length; j++) { // Iterate over cells.
+
+            for (int cellValue : CELL_VALUES) {
+
+                if (sudokuGrid.setCell(i, j, cellValue)) continue; // Attempt to set cell value.
+            }
+
+            assertEquals(rowDeepCopy[j], grid[i][j], String.format("Cell at row[%d] should be equal to cell at grid[%d][%d].", j, i, j));
         }
     }
 
@@ -175,6 +231,60 @@ public class GridParameterisedConstructorTest {
 
                 assertTrue(Validator.isUnitValid(relatedCells), String.format("Related Cells at grid[%d][%d] should contain 1 to 9 inclusive.", i, j));
             }
+        }
+    }
+
+    @Test
+    void testCountEmptyCells() {
+
+        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
+
+        int emptyCellCount = GRID_SIZE * GRID_SIZE * CELL_VALUES_DEFAULT; // Number of empty cells in grid.
+
+        assertEquals(emptyCellCount, sudokuGrid.countEmptyCells(), String.format("Grid should contain %d empty cells.", emptyCellCount));
+    }
+
+    @Test
+    void testCountSetCells() {
+
+        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
+
+        int setCellCount = GRID_SIZE * GRID_SIZE; // Number of set cells in grid.
+
+        assertEquals(setCellCount, sudokuGrid.countSetCells(), String.format("Grid should contain %d set cells.", setCellCount));
+    }
+
+    @Test
+    void testGetEmptyCells() {
+
+        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
+
+        int emptyCellCount = GRID_SIZE * GRID_SIZE * CELL_VALUES_DEFAULT; // Number of empty cells in grid.
+
+        Cell[] emptyCells = sudokuGrid.getEmptyCells(); // Empty cells in grid.
+
+        assertEquals(emptyCellCount, emptyCells.length, String.format("Grid should contain %d empty cells.", emptyCellCount));
+
+        for (Cell cell : emptyCells) {
+
+            assertNotEquals(CELL_VALUES_DEFAULT, cell.getValue(), String.format("Cell at grid[%d][%d] should not be equal to zero.", cell.getRowIndex(), cell.getColIndex()));
+        }
+    }
+
+    @Test
+    void testGetSetCells() {
+
+        Cell[][] grid = sudokuGrid.getGrid(); // Access grid.
+
+        int setCellCount = GRID_SIZE * GRID_SIZE; // Number of set cells in grid.
+
+        Cell[] setCells = sudokuGrid.getSetCells(); // Set cells in grid.
+
+        assertEquals(setCellCount, setCells.length, String.format("Grid should contain %d set cells.", setCellCount));
+
+        for (Cell cell : setCells) {
+
+            assertNotEquals(CELL_VALUES_DEFAULT, cell.getValue(), String.format("Cell at grid[%d][%d] should not be equal to zero.", cell.getRowIndex(), cell.getColIndex()));
         }
     }
 }
